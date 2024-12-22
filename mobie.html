@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Ẩn Trên Di Động</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <!-- <link rel="stylesheet" href="./css/home.css"> -->
+    <!-- <link rel="stylesheet" href="./css/style.css"> -->
+    <link rel="stylesheet" href="./framework/css/appversion2.css">
+</head>
+<style>
+    /* Reset mặc định */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f4f4f4;
+        padding: 10px;
+    }
+
+    /* Header */
+    header {
+        position: relative;
+        /* background: rgb(0, 123, 255, 0.2); */
+        /* color: white; */
+        padding: 10px 20px;
+        text-align: center;
+        border-radius: 5px;
+    }
+
+    /* Menu toggle button */
+    .menu-toggle {
+        display: none;
+        font-size: 18px;
+        cursor: pointer;
+        padding: 10px;
+        background: #0056b3;
+        color: white;
+        border-radius: 5px;
+        text-align: left;
+    }
+
+    /* Navigation menu */
+    nav {
+        margin-top: 10px;
+    }
+
+    nav ul {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+    }
+
+    nav ul li {
+        margin: 10px 5px;
+    }
+
+    nav ul li a {
+        text-decoration: none;
+        color: white;
+        font-size: 18px;
+        display: block;
+        /* background: #0056b3; */
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    /* Main content */
+    main {
+        margin-top: 20px;
+    }
+
+    section {
+        margin-bottom: 20px;
+        padding: 10px;
+        background: white;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .icon-flash {
+        width: 40px;
+    }
+
+
+    #img-home,
+    #img-addText,
+    #img-listData,
+    #img-dataBase {
+        width: 40px;
+        transition: width 1s ease;
+    }
+
+    li {
+        list-style: none;
+    }
+
+
+
+
+
+
+
+
+    /* Đặt các thẻ flashcard ở chế độ 3D */
+    .flashcard {
+        width: 500px;
+        height: 300px;
+        perspective: 1000px;
+    }
+
+    /* Đảm bảo thẻ chứa mặt trước và mặt sau có thể lật qua lại */
+    .flashcard-inner {
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        transition: transform 0.6s;
+    }
+
+    /* Mặt trước của flashcard */
+    .flashcard-front,
+    .flashcard-back {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        backface-visibility: hidden;
+    }
+
+    /* Định dạng mặt trước */
+    .flashcard-front {
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        font-size: 1.2em;
+        color: #333;
+        border: 1px solid #ddd;
+    }
+
+    /* Định dạng mặt sau */
+    .flashcard-back {
+        background-color: orangered;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        font-size: 1.2em;
+        color: white;
+        border: 1px solid #ddd;
+        transform: rotateX(180deg);
+        /* Lật mặt sau theo trục X */
+    }
+
+    /* Thêm lớp "flip" để lật flashcard */
+    .flashcard.flip .flashcard-inner {
+        transform: rotateX(180deg);
+        /* Lật flashcard lên xuống */
+    }
+
+    .flashcard-front,
+    .flashcard-back {
+        border-radius: 10px;
+        border: 2px solid orangered;
+    }
+
+
+
+    #flashcard-container {
+        width: 600px;
+        margin: 0 auto;
+    }
+
+    .list-group {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 40px;
+        /* border: 1px solid red; */
+    }
+    /* .list-group .button-flash:hover{
+        box-shadow: 0 0 10px 10px rgb(255, 69, 0);
+        background: rgb(255, 69, 0);
+    } */
+
+    .group1{
+        margin-top: 15px;
+    }
+    .group2{
+        margin-top: 15px;
+    }
+
+    .flashcard {
+        margin: 20px auto;
+    }
+
+    .move-button img {
+        border: 2px solid black;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        padding: 10px;
+    }
+
+    .move-button img:hover {
+        background: rgb(255, 69, 0, 0.1);
+        border-color: orangered;
+    }
+
+    .position-flashcard {
+        /* border: 1px solid black; */
+        color: orangered;
+        width: 60px;
+        text-align: center;
+        line-height: 60px;
+        font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+
+        /* @media (max-width: 100px) { */
+        .flashcard {
+            width: 80vw;
+            /* 80% chiều rộng màn hình */
+            height: 20vh;
+            /* 60% chiều cao màn hình */
+        }
+
+        .flashcard-front,
+        .flashcard-back {
+            font-size: 1em;
+            /* Giảm kích thước chữ cho phù hợp */
+        }
+    }
+
+    /* Media queries */
+    @media (max-width: 768px) {
+        /* @media (max-width: 100px) { */
+
+        header {
+            padding: 10px;
+            text-align: left;
+        }
+
+        /* Hidden menu */
+        .hidden {
+            display: none;
+        }
+
+        .menu-toggle {
+            display: block;
+        }
+
+        nav ul {
+            margin-top: 0;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        body {
+            width: 100vw;
+        }
+
+        #flashcard-container {
+            width: 100%;
+
+        }
+
+        .flashcard {
+            /* height: ; */
+            max-width: 100%;
+        }
+
+        .list-group {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 0 5px;
+            
+        }
+
+        .list-group div {
+            background: none;
+            width: 100px;
+            text-align: center;
+        }
+
+        .list-group .move-button {
+            width: 100px;
+        }
+
+        .icon-flash {
+            width: 40px;
+        }
+
+        .position-flashcard {
+            font-size: 18px;
+        }
+
+        .button-flash {
+            margin: 10px 0;
+        }
+    }
+</style>
+
+<body>
+    <header>
+        <li>
+            <div class="menu-toggle" id="menuToggle">
+                ☰ Menu
+            </div>
+            <nav id="mobileMenu">
+                <ul>
+                    <li>
+                        <a href="mobie.html"><img id="img-home" src="image/3d-house.png" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="add2.html"><img id="img-addText" src="image/image-gallery.png" alt=""></a>
+                    <li>
+                    <li>
+                        <a href="listData.html"><img id="img-listData" src="image/data-collection.png" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="DataBase.html"><img id="img-dataBase" src="image/database-management.png" alt=""></a>
+                    </li>
+                </ul>
+            </nav>
+    </header>
+    <main>
+        <div id="flashcard-container">
+            <section id="home">
+                <li>
+                    <div class="list-group group1">
+                        <div class="button-flash" onclick="toFillWord()">
+                            <img style="width: 40px;" class="icon-flash" src="image/pencil.png" alt="">
+                        </div>
+                        <div class="button-flash" id="switch-to-quiz-btn" onclick="toMultipleChoice()">
+                            <img style="width: 40px;" class="icon-flash" src="image/choose.png" alt="">
+                        </div>
+                        <div class="button-flash" id="switch-to-quiz-btn" onclick="toBoolean()">
+                            <img style="width: 40px;" class="icon-flash" src="image/boolean.png" alt="">
+                        </div>
+                        <div class="button-flash" id="">
+                            <img style="width: 40px;" class="icon-flash" onclick="toMatching()" src="image/puzzle.png"
+                                alt="">
+                        </div>
+                        <div class="button-flash" id="" onclick="toListenFill()">
+                            <img style="width: 40px;" class="icon-flash" src="image/listening-music.png" alt="">
+                        </div>
+                        <div class="button-flash" id="" onclick="toTest()">
+                            <img style="width: 40px;" class="icon-flash" src="image/check (1).png" alt="">
+                        </div>
+                    </div>
+                    <div class="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front" id="card-question">Question goes here...</div>
+                            <div class="flashcard-back" id="card-answer">Answer goes here...</div>
+                        </div>
+                    </div>
+                    <div class="list-group group2">
+
+
+                        <div class="move-button" id="prev-flashcard-btn">
+                            <img class="icon-flash" src="image/back.png" alt="">
+                        </div>
+
+                        <div class="position-flashcard" id="card-location"></div>
+
+                        <div class="move-button" id="next-flashcard-btn">
+                            <img class="icon-flash" src="image/next.png" alt="">
+                        </div>
+
+                        <div class="move-button" id="flip-btn">
+                            <img class="icon-flash" src="image/repeat.png" alt="">
+                        </div>
+
+                        <div class="move-button" id="to-the-beginning-btn">
+                            <img class="icon-flash" src="image/11502464.png" alt="">
+                        </div>
+
+                        <div class="move-button" id="to-the-end-btn">
+                            <img class="icon-flash" src="image/fast-forward-double-right-arrows-symbol.png" alt="">
+                        </div>
+
+                    </div>
+            </section>
+            <section id="about">
+
+
+            </section>
+            <section id="services">
+            </section>
+            <section id="contact">
+            </section>
+        </div>
+    </main>
+</body>
+<script>
+    function toListenFill() {
+        window.location.href = "ListeningVersion.html";
+    }
+    function toBoolean() {
+        window.location.href = "boolean.html";
+    }
+    function toMatching() {
+        window.location.href = "matching.html";
+    }
+    function toFillWord() {
+        window.location.href = "fillWord.html"
+    }
+    function toTest() {
+        window.location.href = "SetTest.html";
+    }
+    function toMultipleChoice() {
+        window.location.href = "MultipleChoice.html";
+    }
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const menuToggle = document.getElementById("menuToggle");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        menuToggle.addEventListener("click", () => {
+            // Toggle menu visibility
+            mobileMenu.classList.toggle("hidden");
+        });
+    });
+
+</script>
+<script src="./js/script.js"></script>
+
+</html>

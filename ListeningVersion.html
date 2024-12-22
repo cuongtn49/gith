@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./framework/css/appversion2.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div id="Home">
+            <a href="mobie.html"><img id="img-home" src="image/3d-house.png" alt=""></a>
+        </div>
+    </header>
+    <div id="app-container">
+        <div class="settings-section" id="settings-container">
+            <h2>Cài đặt chế độ</h2>
+            <label>
+                <input type="radio" name="mode-selection" value="answer" id="fillQustion" checked /> Điền câu hỏi
+            </label>
+            <label>
+                <input type="radio" name="mode-selection" value="question" id="fillAnswer" /> Điền đáp án
+            </label>
+            <label>
+                <input type="checkbox" name="options" value="random" id="option-random" /> Câu hỏi ngẫu nhiên
+            </label>
+            <label>
+                <input type="checkbox" name="options" value="limit-length" id="option-limit-length" checked /> Giới hạn
+                ký tự
+            </label>
+            <br />
+            <label>
+                Số lượng câu hỏi:
+                <input type="number" id="question-count" value="5" min="1" />
+            </label>
+            <button class="action-button" id="formBtn" style="display: block; margin: 0 auto; margin-top: 40px;">
+                Bắt đầu
+            </button>
+        </div>
+        <div class="content-section" id="listenBoxQuestion" style="display: none;">
+            <h2 class="instructions-text" id="numberQuestion">Hướng dẫn hiển thị tại đây...</h2>
+            <h3 class="display-question" id="loudspeakerQuestion"><img src="./image/sound-wave.png" alt="" style="width: 100px;"></h3>
+            <input type="text" id="listenFillPlace" placeholder="Nhập câu trả lời tại đây..." autocomplete="off" />
+            <p class="feedback-message" style="visibility: hidden;">Thông báo kết quả</p>
+            <div class="control-buttons">
+                <button class="action-button" id="suggestBtn">Gợi ý</button>
+                <button class="action-button" id="checkAnswerBtn">Gửi</button>
+                <button class="action-button" id="nextBtn">Tiếp theo</button>
+            </div>
+        </div>
+        <div class="completion-message" id="fill-finish" style="display: none;">
+            🎉 Bạn đã hoàn thành xuất sắc! 🎉
+            <span>Chúc mừng bạn với kết quả tuyệt vời!</span>
+            <span class="score-display" id="fill-score" style="font-weight: 900;">Điểm số: 0</span>
+            <span class="correct-count" id="fill-correct">Số câu đúng: 0</span>
+            <span class="wrong-count" id="fill-wrong">Số câu sai: 0</span>
+        </div>
+
+        <div class="detailed-review" id="detailed-review" style="display: none;">
+            <h2>Kết quả Chi Tiết</h2>
+            <table class="review-data" id="review-data">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Câu hỏi</th>
+                        <th>Câu trả lời</th>
+                        <th>Đáp án</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body" id="table-body">
+                    <!-- Các hàng dữ liệu sẽ được thêm vào đây -->
+                     <tr>
+                        <td>1</td>
+                        <td>question 1</td>
+                        <td>your answer</td>
+                        <td>answer</td>
+                     </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="module" src="./js/listen.js"></script>
+</body>
+</html>

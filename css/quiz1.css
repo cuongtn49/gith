@@ -1,0 +1,76 @@
+.quiz-container {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin: 50px auto;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .choices {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .choice-btn {
+    padding: 15px 25px;
+    font-size: 1.1rem;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    min-width: 300px;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .choice-btn:hover {
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    box-shadow: 0 10px 20px rgba(255, 105, 135, 0.3);
+    transform: scale(1.05);
+  }
+  
+  .choice-btn.correct {
+    background: linear-gradient(135deg, #00c853, #b2ff59);
+    box-shadow: 0 10px 20px rgba(0, 200, 83, 0.4);
+  }
+  
+  .choice-btn.wrong {
+    background: linear-gradient(135deg, #d50000, #ff8a80);
+    box-shadow: 0 10px 20px rgba(213, 0, 0, 0.4);
+  }
+  
+  .choice-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  #quiz-feedback {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 20px 0;
+    padding: 10px;
+    color: #fff;
+    border-radius: 8px;
+    height: 30px;
+    line-height: 30px;
+    /* background: rgb(238, 255, 0); */
+  }
+  
+  #quiz-feedback.wrong {
+    background: #f44336;
+  }
+  #next-question-btn{
+    background: linear-gradient(135deg, #0099ff, #66ccff);
+  }

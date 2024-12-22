@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/setting.css">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        font-family: cursive;
+    }
+
+    #true-false-container {
+        width: 350px;
+        height: 350px;
+        margin: 40px auto;
+        padding: 40px;
+        box-shadow: 0 0 5px 0 silver;
+    }
+
+    #true-false-question {
+        text-align: center;
+        margin: 0 0 30px 0;
+        font-size: 25px;
+    }
+
+    #number-question {
+        text-align: center;
+        margin: 0 0 30px 0;
+        font-size: 25px;
+        font-weight: 600;
+        color: rgb(132, 0, 255);
+    }
+
+    #true-false-container input[type="radio"] {
+        display: none;
+    }
+
+    #answer {
+        text-align: center;
+        margin: 40px 0;
+        font-size: 20px;
+    }
+
+    .custom-radio {
+        display: block;
+        margin: 20px 0;
+        border: 2px dashed rgb(0, 174, 255);
+        height: 40px;
+        font-size: 20px;
+        line-height: 40px;
+        text-align: center;
+        transform: scale(1);
+        transition: background-color 0.5s ease;
+    }
+
+    input[type="radio"]+.custom-radio:hover {
+        border-color: blue;
+        transform: scale(1.01);
+    }
+
+    input[type="radio"]:checked+.custom-radio {
+        background: rgba(0, 255, 242, 0.04);
+        /* Thay đổi màu khi được chọn */
+
+    }
+
+    input[type="radio"]:not(:checked)+.custom-radio {
+        background: transparent;
+    }
+
+    #box {
+        position: relative;
+        width: 100%;
+    }
+
+    #img-next {
+        position: absolute;
+        top: 2px;
+        right: 0;
+
+        left: 230px;
+        width: 30px;
+    }
+
+    /* #setting-container{
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        width: 300px;
+        height: 300px;
+        margin: 0 auto;
+        box-shadow: 0 0 5px 0;
+    } */
+
+/* CSS thích ứng */
+/* Thiết bị có màn hình nhỏ hơn 768px (máy tính bảng, điện thoại ngang) */
+@media (max-width: 768px) {
+    #true-false-container {
+        width: 90%; /* Chiếm phần lớn chiều rộng màn hình */
+        height: auto; /* Tự điều chỉnh chiều cao */
+        padding: 30px; /* Giảm padding */
+        margin: 20px auto;
+    }
+
+    #true-false-question,
+    #number-question {
+        font-size: 20px; /* Giảm kích thước font */
+    }
+
+    .custom-radio {
+        font-size: 18px; /* Giảm kích thước font */
+        height: 35px; /* Giảm chiều cao */
+        line-height: 35px;
+    }
+
+    #answer {
+        font-size: 18px; /* Giảm kích thước font */
+    }
+
+    #img-next {
+        left: 80%; /* Đẩy nút sang bên phải */
+        width: 25px; /* Giảm kích thước ảnh */
+    }
+}
+
+/* Thiết bị có màn hình nhỏ hơn 480px (điện thoại đứng) */
+@media (max-width: 480px) {
+    #true-false-container {
+        width: 95%; /* Chiếm gần toàn bộ màn hình */
+        padding: 20px; /* Giảm thêm padding */
+    }
+
+    #true-false-question,
+    #number-question {
+        font-size: 18px; /* Giảm kích thước font hơn nữa */
+    }
+
+    .custom-radio {
+        font-size: 16px; /* Font nhỏ hơn */
+        height: 30px; /* Chiều cao thấp hơn */
+        line-height: 30px;
+    }
+
+    #answer {
+        font-size: 16px; /* Font nhỏ hơn */
+    }
+
+    #img-next {
+        left: 75%; /* Đẩy nút sang bên phải */
+        width: 20px; /* Kích thước ảnh nhỏ hơn */
+    }
+}
+</style>
+
+<body>
+    <header>
+        <div id="Home">
+            <a href="mobie.html"><img id="img-home" src="image/3d-house.png" alt=""></a>
+        </div>
+        <div id="addText">
+            <img id="img-home" src="image/work-process.png" alt="" onclick="setting()">
+        </div>
+    </header>
+    <div id="true-false-container" style="display: none;">
+        <div id="box" onclick="next()" style="display: none;"><img src="image/right-arrow.png" id="img-next" alt="">
+        </div>
+        <div id="number-question">NUMBER QUESTIN</div>
+        <div id="true-false-question">QUESTION</div>
+        <input type="radio" id="true" name="choice">
+        <label for="true" class="custom-radio">true</label>
+        <input type="radio" id="false" name="choice">
+        <label for="false" class="custom-radio">false</label>
+        <div id="answer">ANSWER</div>
+    </div>
+    <div id="setting-container">
+        <table>
+            <tr>
+                <td><label for="socau">Số câu hỏi</label></td>
+                <td><input type="number" placeholder="câu" id="socau" min="1"></td>
+            </tr>
+            <tr>
+                <td><label for="batdau">Câu bắt đầu</label></td>
+                <td><input type="number" placeholder="" id="batdau" min="1" value="1"></td>
+            </tr>
+            <tr>
+                <td><label for="thoigian">Thời gian</label></td>
+                <td><input type="number" placeholder="phút" id="thoigian" disabled></td>
+            </tr>
+            <tr>
+                <td><input type="radio" name="mix" id="macdinh" checked></td>
+                <td><label for="macdinh">Mặc định</label></td>
+            </tr>
+            <tr>
+                <td><input type="radio" name="mix" id="troncau"></td>
+                <td><label for="troncau">Trộn câu hỏi</label></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" id="tudong" disabled></td>
+                <td><label for="tudong">Tự động chuyển câu hỏi</label></td>
+            </tr>
+        </table>
+        <button id="submit-btn">Submit</button>
+    </div>
+
+    <script>
+        var flashcards = JSON.parse(localStorage.getItem("data")) || [];
+        document.getElementById("socau").value = flashcards.length;
+        var mergedFlashcards = flashcards.map(element => element).sort(() => Math.random() - 0.5);
+        // console.log(mergedFlashcards);
+        // console.log(flashcards);
+        var index = 0;
+        const container = document.getElementById("true-false-container");
+        const numberQuestion = document.getElementById("number-question");
+        const question = document.getElementById("true-false-question");
+        const choiceArray = document.getElementsByClassName("custom-radio");
+        const inputArray = document.querySelectorAll('input[name="choice"]');
+        const answer = document.getElementById("answer");
+        
+        // setting
+        const submitSetting = document.getElementById("submit-btn");
+        var questionList = [];
+
+        submitSetting.addEventListener("click", () => {
+            const socau = document.getElementById("socau").value;
+            const macdinh = document.getElementById("macdinh").checked;
+            const troncau = document.getElementById("troncau").checked;
+            const tudong = document.getElementById("tudong").checked;
+            const batdau = document.getElementById("batdau").value;
+            var data;
+            index = batdau-1;
+            if (troncau) {
+                data = flashcards
+                    .map(element => element)
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, socau);
+                questionList = createQuestionList(data, data.length);
+            } else {
+                data = flashcards
+                    .map(element => element)
+                    .slice(0, socau);
+                questionList = createQuestionList(data, data.length);
+            }
+            document.getElementById("setting-container").style.display = "none";
+            container.style.display = "block";
+            displayQuestion(questionList, index);
+            // console.log(questionList);
+
+        });
+        function createQuestionList(data, number) {
+            return data.map(item => {
+                const isCorrect = Math.random() > 0.5;
+                return {
+                    question: item.question,
+                    correctAnswer: item.answer,
+                    fakeAnswer: isCorrect ? item.answer : generateFalseAnswer(mergedFlashcards, item.answer), //cố định mergedFlashcards
+                    isCorrect: isCorrect
+                }
+                function generateFalseAnswer(data, correctAnswer) {
+                    const incorrectAnswers = data
+                        .map(fc => fc.answer)
+                        .filter(answer => answer !== correctAnswer);
+                    return incorrectAnswers.length > 0
+                        ? incorrectAnswers[Math.floor(Math.random() * incorrectAnswers.length)]
+                        : "Không có câu trả lời sai!";
+                }
+            });
+        }
+        // console.log(questionList);
+
+        function displayQuestion(element, index) {
+            if (index < questionList.length) {
+                resetInterface();
+                numberQuestion.textContent = `Question ${index + 1}`;
+                question.textContent = `${element[index].question} - ${element[index].fakeAnswer}`;
+                answer.textContent = `${element[index].question} - ${element[index].correctAnswer}`;
+            }
+        }
+        function resetInterface() {
+            choiceArray[0].style.background = "rgba(0, 0, 0, 0)";
+            choiceArray[1].style.background = "rgba(0, 0, 0, 0)";
+            answer.style.display = "none";
+        }
+        function displayAnser() {
+            if (questionList[index].isCorrect.toString() === "false") answer.style.display = "block";
+        }
+        inputArray.forEach(element => {
+            element.addEventListener("click", () => {
+                if (index < questionList.length) {
+                    const label = document.querySelector(`label[for="${element.id}"]`);
+                    // alert(questionList[index].isCorrect +"/" +element.id);
+                    if (questionList[index].isCorrect.toString() === element.id.toString()) {
+                        label.style.background = "rgba(0, 255, 0, 0.2)";
+                        displayAnser();
+                        index++;
+                        setTimeout(() => {
+                            if (index < questionList.length) displayQuestion(questionList, index);
+                        }, 1000);
+                    } else {
+                        label.style.background = "rgba(255, 0, 0, 0.2)";
+                        document.querySelector(`label[for="${questionList[index].isCorrect.toString()}"]`).style.background = "rgba(0, 255, 0, 0.2)";
+                        displayAnser();
+                        index++;
+                        setTimeout(() => {
+                            if (index < questionList.length) displayQuestion(questionList, index);
+                        }, 1000);
+                    }
+                } else {
+                    alert("Bạn đã hoàn thành");
+                }
+            })
+        });
+        function next() {
+            displayQuestion(questionList, index);
+        }
+        function setting(){
+            window.location.href = "boolean.html";
+        }
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,266 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #e0f7fa, #b2ebf2);
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Container chính */
+#app-container {
+    background: #fff;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+#app-container::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 150px;
+    height: 150px;
+    background: #00acc1;
+    opacity: 0.1;
+    border-radius: 50%;
+}
+
+#app-container::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background: #00acc1;
+    opacity: 0.1;
+    border-radius: 50%;
+}
+
+/* Phần tiêu đề */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #00acc1;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    margin: 10px auto 0;
+    background: #00acc1;
+    border-radius: 2px;
+}
+
+/* Form các lựa chọn */
+label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 10px;
+    display: block;
+}
+
+input[type="radio"], input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+input[type="number"], input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+input[type="number"]:focus, input[type="text"]:focus {
+    border-color: #00acc1;
+    box-shadow: 0 0 5px rgba(0, 172, 193, 0.5);
+    outline: none;
+}
+/* Nút lựa chọn trong chế độ câu hỏi */
+.choices-container{
+    text-align: center;
+}
+.choice-button {
+    display: inline-block;
+    width: calc(50% - 10px);
+    margin: 5px 5px;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: #fff;
+    background: #00acc1;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.choice-button:hover {
+    background: #00838f;
+    transform: scale(1.05);
+}
+
+.choice-button:active {
+    background: #005662;
+    transform: scale(0.95);
+}
+.choice-button.checked {
+    background: #005662;
+    color: white;
+    transform: scale(0.95);
+}
+
+/* Các nút bấm */
+/* Button group */
+.control-buttons{
+    text-align: center;
+}
+.action-button {
+    display: inline-block;
+    width: calc(50% - 10px);
+    margin: 10px 5px;
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: #00acc1;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0, 172, 193, 0.3);
+    width: 150px;
+}
+
+.action-button:hover {
+    background: #00838f;
+    box-shadow: 0 8px 15px rgba(0, 131, 143, 0.3);
+    transform: translateY(-2px);
+}
+
+.action-button:active {
+    transform: scale(0.95);
+}
+
+/* Phần hiển thị câu hỏi và phản hồi */
+.instructions-text, .display-question {
+    text-align: center;
+    margin: 15px 0;
+    font-weight: 600;
+    color: #444;
+}
+
+.feedback-message {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 14px;
+    color: #f44336;
+}
+
+/* Phần hoàn thành */
+.completion-message {
+    font-family: cursive;
+    text-align: center;
+    background: #f1f8e9;
+    padding: 20px;
+    border: 1px solid #c5e1a5;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(192, 225, 137, 0.2);
+    margin-top: 20px;
+}
+
+.completion-message span {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.completion-message .score-display {
+    font-size: 20px;
+    font-weight: 700;
+    color: #4caf50;
+}
+
+/* Table */
+.detailed-review {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.detailed-review h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: #00acc1;
+}
+
+.review-data {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.review-data th, .review-data td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.review-data th {
+    background-color: #00acc1;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.review-data tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.review-data tr:hover {
+    background-color: #e0f7fa;
+    cursor: pointer;
+}
+
+.review-data td.correct {
+    color: #4caf50;
+    font-weight: 600;
+}
+
+.review-data td.incorrect {
+    color: #f44336;
+    font-weight: 600;
+}
+
