@@ -1,0 +1,219 @@
+/* Reset CSS */
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */
+
+/* Body */
+#body-fill {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* background-color: #f5f5f5; */
+    color: #333;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container chính */
+.fill-setup, .fill-container {
+    max-width: 600px;
+    width: 100%;
+    margin: 20px;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+/* Tiêu đề */
+.fill-setup h2, .fill-container h2 {
+    font-size: 1.8em;
+    font-weight: 600;
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Các nhãn và input */
+label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: 500;
+    color: #555;
+    font-size: 1em;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+input[type="number"], 
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Nút bấm */
+.button-fill {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+.button-fill:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.button-fill:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Phản hồi (feedback) */
+#fill-feedback {
+    margin-top: 20px;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+#fill-feedback.green {
+    color: #28a745;
+}
+
+#fill-feedback.red {
+    color: #dc3545;
+}
+
+#fill-feedback.blue {
+    color: #007bff;
+}
+
+/* Câu hỏi */
+#fill-question {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin: 15px 0;
+    text-align: center;
+    color: #333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .fill-setup, .fill-container {
+        padding: 20px;
+    }
+
+    .fill-setup h2, .fill-container h2 {
+        font-size: 1.6em;
+    }
+
+    input[type="number"], input[type="text"] {
+        padding: 10px;
+    }
+
+    .button-fill {
+        padding: 10px 15px;
+    }
+}
+/*  */
+/* Chúc mừng hoàn thành */
+#fill-finish {
+    display: none;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px 30px;
+    text-align: center;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.6em;
+    font-weight: bold;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 1.5s ease, glow 1.5s infinite alternate;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Hiển thị điểm, câu đúng và sai */
+#fill-finish span {
+    display: block;
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 400;
+    animation: textPop 1s ease both 1.5s;
+}
+
+/* Hiệu ứng xuất hiện */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hiệu ứng phát sáng */
+@keyframes glow {
+    from {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    }
+    to {
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+    }
+}
+
+/* Hiệu ứng xuất hiện pop */
+@keyframes textPop {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #fill-finish {
+        font-size: 1.4em;
+        padding: 15px;
+    }
+
+    #fill-finish span {
+        font-size: 1.1em;
+    }
+}
+

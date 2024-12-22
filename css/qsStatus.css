@@ -1,0 +1,53 @@
+.question-status {
+    width: 100%;
+    /* padding: 20px; */
+  }
+
+  .question-status h3 {
+    font-size: 22px;
+    color: #333333;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .status-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 cột */
+    gap: 10px;
+  }
+
+  .status-item {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .status-item:hover {
+    transform: scale(1.05);
+  }
+
+  /* Trạng thái chưa làm */
+  .not-answered {
+    /* background: #ff6b6b; */
+    border: 1px solid black;
+  }
+
+  /* Trạng thái đã làm */
+  .answered {
+    background: rgb(0, 255, 8, 0.2);
+    border: 1px solid black;
+  }
+
+  /* Trạng thái đang làm */
+  .current {
+    background: rgb(255, 191, 0, 0.2);
+    border: 1px solid black;
+  }

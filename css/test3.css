@@ -1,0 +1,189 @@
+/* Định dạng chung cho toàn bộ phần tử */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+#layout-test-format {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin: 20px;
+}
+
+#test-format {
+    max-width: 800px;
+    width: 100%;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Định dạng tiêu đề chung cho từng loại câu hỏi */
+#test-format .title-question {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #e74c3c;
+    padding-bottom: 10px;
+}
+
+/* Định dạng cho từng phần */
+#multiple-choice-format,
+#fill-word-format,
+#true-false-format {
+    margin-bottom: 30px;
+}
+
+/* Định dạng câu hỏi */
+#multiple-choice-format #question-multiple-choice-format,
+#fill-word-format #question-fill-word-format,
+#true-false-format #question-true-false-format {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #ecf0f1;
+    border-left: 4px solid #3498db;
+    border-radius: 4px;
+}
+
+/* Định dạng đáp án trắc nghiệm */
+#multiple-choice-format div[id^="choice"] {
+    font-size: 1em;
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#multiple-choice-format div[id^="choice"]:hover {
+    background-color: #3498db;
+    color: #ffffff;
+}
+
+/* Định dạng ô điền đáp án */
+#fill-word-format input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#fill-word-format input[type="text"]:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+/* Định dạng cho câu hỏi Đúng/Sai */
+#true-false-format label {
+    font-size: 1em;
+    margin-right: 10px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#true-false-format label:hover {
+    background-color: #3498db;
+    color: #ffffff;
+}
+
+#true-false-format input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Khoảng cách giữa các phần tử radio */
+#true-false-format {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Định dạng cho thanh trạng thái câu hỏi */
+#front-side-question-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    width: 250px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    align-self: flex-start;
+}
+
+#front-side-question-status div {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #95a5a6;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#front-side-question-status div.answered {
+    background-color: #27ae60;
+}
+
+#front-side-question-status div:hover {
+    background-color: #3498db;
+}
+
+/* Responsive: hiển thị đẹp trên thiết bị nhỏ hơn */
+@media (max-width: 600px) {
+    #layout-test-format {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #test-format {
+        padding: 10px;
+    }
+
+    #test-format .title-question {
+        font-size: 1.2em;
+    }
+
+    #multiple-choice-format div[id^="choice"],
+    #fill-word-format input[type="text"],
+    #true-false-format label {
+        font-size: 0.9em;
+    }
+
+    #front-side-question-status {
+        width: 100%;
+        max-width: 800px;
+        justify-content: center;
+    }
+
+    #front-side-question-status div {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8em;
+    }
+}
