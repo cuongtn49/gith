@@ -39,13 +39,13 @@ formBtn.addEventListener("click", () => {
     displayQS(dataList, index);
 });
 function setData(originData, numberQuestion) {
-    var newData = [...originData]
+    var newData = [...originData];
+    if (document.getElementById("option-random").checked) newData.sort(() => Math.random() - 0.5);
         // .sort(() => Math.random() - 0.5)
-        .slice(0, numberQuestion);
+        newData =newData.slice(0, numberQuestion);
     newData = newData.map(element => {
         return {question:element.question, answer:element.answer, yourAnswer: ""};
     });
-    if (document.getElementById("option-random").checked) newData.sort(() => Math.random() - 0.5);
     return newData;
 }
 function displayQS(data, index) {
