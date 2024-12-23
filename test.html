@@ -526,6 +526,24 @@
                 console.log("Người dùng nhấn phím reload!");
             }
         });
+
+
+        const inputs = document.querySelectorAll('#fill-word-format input[type="text"]');
+        inputs.forEach((input, index) => {
+            input.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Ngăn chặn hành vi mặc định (submit form)
+                    const nextInput = inputs[index + 1];
+                    if (nextInput) {
+                        nextInput.focus(); // Focus vào input tiếp theo
+                    } else {
+                        // Nếu không còn input nào, có thể submit form hoặc làm gì đó khác
+                        alert('Bạn đã điền xong tất cả các ô!');
+                    }
+                }
+            });
+        });
+
         localStorage.removeItem("test-structure");
 
 
