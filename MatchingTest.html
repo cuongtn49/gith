@@ -155,37 +155,77 @@
                 </div>
 
                 <div id="matching-format">
-                    <div class="title-question">CÂU HỎI ĐIỀN CỘT</div>
+                    <!-- <div class="title-question">CÂU HỎI ĐIỀN CỘT</div>
                     <div class="question-matching-format">QUESTION</div>
-                    <div id="column-matching">
-                        <div id="column1-matching">
-                            <div class="box-matching"><span>1</span><div>A</div></div>
-                            <div class="box-matching"><span>2</span><div>A</div></div>
-                            <div class="box-matching"><span>3</span><div>A</div></div>
-                            <div class="box-matching"><span>4</span><div>A</div></div>
-                            <div class="box-matching"><span>5</span><div>A</div></div>
-                            <div class="box-matching"><span>6</span><div>A</div></div>
-                            <div class="box-matching"><span>7</span><div>A</div></div>
-                            <div class="box-matching"><span>8</span><div>A</div></div>
-                            <div class="box-matching"><span>9</span><div>A</div></div>
-                            <div class="box-matching"><span>10</span><div>A</div></div>
+                    <div class="column-matching">
+                        <div class="column1-matching">
+                            <div class="box-matching"><span>1</span>
+                                <div>A</div>
+                            </div>
+                            <div class="box-matching"><span>2</span>
+                                <div>A</div>
+                            </div>
+                            <div class="box-matching"><span>3</span>
+                                <div>A</div>
+                            </div>
+                            <div class="box-matching"><span>4</span>
+                                <div>A</div>
+                            </div>
+                            <div class="box-matching"><span>5</span>
+                                <div>A</div>
+                            </div>
+                            <div class="box-matching"><span>6</span>
+                                <div>A</div>
+                            </div>
+                            <div class="box-matching"><span>7</span>
+                                <div>A</div>
+                            </div>
+                            <div class="box-matching"><span>8</span>
+                                <div>A</div>
+                            </div>
+                            <div class="box-matching"><span>9</span>
+                                <div>A</div>
+                            </div>
+                            <div class="box-matching"><span>10</span>
+                                <div>A</div>
+                            </div>
                             <div class="box-matching">A</div>
                         </div>
-                        <div id="column2-matching">
-                            <div class="box-matching"><span>A</span><div>A</div></div>
-                            <div class="box-matching"><span>B</span><div>A</div></div>
-                            <div class="box-matching"><span>C</span><div>A</div></div>
-                            <div class="box-matching"><span>D</span><div>A</div></div>
-                            <div class="box-matching"><span>E</span><div>A</div></div>
-                            <div class="box-matching"><span>F</span><div>A</div></div>
-                            <div class="box-matching"><span>G</span><div>A</div></div>
-                            <div class="box-matching"><span>H</span><div>A</div></div>
-                            <div class="box-matching"><span>I</span><div>A</div></div>
-                            <div class="box-matching"><span>J</span><div>A</div></div>
+                        <div class="column2-matching">
+                            <div class="box-matching"><span>A</span>
+                                <div>A</div>
+                            </div>
+                            <div class="box-matching"><span>B</span>
+                                <div>A</div>
+                            </div>
+                            <div class="box-matching"><span>C</span>
+                                <div>A</div>
+                            </div>
+                            <div class="box-matching"><span>D</span>
+                                <div>A</div>
+                            </div>
+                            <div class="box-matching"><span>E</span>
+                                <div>A</div>
+                            </div>
+                            <div class="box-matching"><span>F</span>
+                                <div>A</div>
+                            </div>
+                            <div class="box-matching"><span>G</span>
+                                <div>A</div>
+                            </div>
+                            <div class="box-matching"><span>H</span>
+                                <div>A</div>
+                            </div>
+                            <div class="box-matching"><span>I</span>
+                                <div>A</div>
+                            </div>
+                            <div class="box-matching"><span>J</span>
+                                <div>A</div>
+                            </div>
                             <div class="box-matching">A</div>
                         </div>
-                    </div>
-                    <div id="box-answer-matching">
+                    </div> -->
+                    <!-- <div class="box-answer-matching">
                         <div class="answer-matching"><span>1 - </span><input type="text" maxlength="1"></div>
                         <div class="answer-matching"><span>2 - </span><input type="text" maxlength="1"></div>
                         <div class="answer-matching"><span>3 - </span><input type="text" maxlength="1"></div>
@@ -196,8 +236,8 @@
                         <div class="answer-matching"><span>8 - </span><input type="text" maxlength="1"></div>
                         <div class="answer-matching"><span>9 - </span><input type="text" maxlength="1"></div>
                         <div class="answer-matching"><span>10 - </span><input type="text" maxlength="1"></div>
-           
-                    </div>
+
+                    </div> -->
                 </div>
 
                 <div class="listenning-format">
@@ -209,7 +249,7 @@
                 <div class="listenning-format">
                     <div class="title-question">CÂU HỎI NGHE CHỌN ĐÁP ÁN</div>
                     <div class="question-listenning-format">QUESTION</div>
-                    
+
                 </div>
 
                 <button id="submit-test">SUBMIT</button>
@@ -232,24 +272,199 @@
         </div>
     </div>
     <script>
-        function begin(){
+           const flashcards = JSON.parse(localStorage.getItem("data"));
+        
+        function matchingQuestion(flashcards, n) {
+            if (n > flashcards.length) {
+                console.error("Số lượng câu hỏi yêu cầu lớn hơn số câu có trong CSDL!");
+                return [];
+            }
+            const shuffled = flashcards
+                .map(element => element)
+                .sort(() => Math.random() - 0.5)
+                .slice(0, n);
+            function splitArrayIntoChunks(array, chunkSize = 10) {
+                const result = []; // Mảng chứa các mảng con
+                for (let i = 0; i < array.length; i += chunkSize) {
+                    result.push(array.slice(i, i + chunkSize)); // Lấy 10 phần tử từ chỉ số i
+                }
+                return result;
+            }
+            const list = splitArrayIntoChunks(shuffled, 10);
+            return list.map((element, index1) => {
+                const qsList = element.map(item => item.question);
+                const ansList = element.map((item, index2) => {
+                    return { ans: item.answer, id: `${index1}_${index2}` }
+                });
+                const fakeAnsList = ansList
+                    .map(item => item)
+                    .sort(() => Math.random() - 0.5);
+
+                return {
+                    question: qsList,
+                    options: fakeAnsList,
+                    correctAnswer: ansList
+                };
+            });
+        }
+        
+        const matchingList = matchingQuestion(flashcards, 20);
+        // console.log(getAnswer(matchingList));
+        var arrayAnswer = getAnswer(matchingList);
+        // console.log(arrayAnswer);
+        
+        function display(array) {
+            const arr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
+
+            const matchingBox = document.getElementById("matching-format");
+            matchingBox.innerHTML += `<div class="title-question">CÂU HỎI ĐIỀN CỘT</div>`;
+            array.forEach((element, index) => {
+                matchingBox.innerHTML += `
+                    <div class="question-matching-format">QUESTION ${index + 1}</div>
+                `;
+                const column = document.createElement("div");
+                column.className = 'column-matching';
+
+                const column1 = document.createElement("div");
+                column1.className = 'column1-matching';
+                for (let i = 0; i < element.question.length; i++) {
+                    const div = document.createElement("div");
+                    div.innerHTML = `<div class="box-matching"><span>${i + 1}</span><div>${element.question[i]}</div></div>`;
+                    column1.appendChild(div);
+                }
+                column.appendChild(column1);
+
+                const column2 = document.createElement("div");
+                column2.className = 'column2-matching';
+                for (let i = 0; i < element.options.length; i++) {
+                    const div = document.createElement("div");
+                    div.innerHTML = `<div class="box-matching"><span>${arr[i]}</span><div>${element.options[i].ans}</div></div>`;
+                    column2.appendChild(div);
+                }
+                column.appendChild(column2);
+                matchingBox.appendChild(column);
+
+                const answerPlace = document.createElement("div");
+                answerPlace.className = "box-answer-matching";
+                for (let i = 0; i < element.question.length; i++) {
+                    answerPlace.innerHTML += `<div class="answer-matching"><span>${i + 1} - </span><input type="text" maxlength="1">
+                        <img src="./image/check.png" class="right-answer-matching" alt="" style="display: none;"><img src="./image/wrong.png" class="wrong-answer-matching" alt="" style="display: none;"></div>`;
+                }
+
+                matchingBox.appendChild(answerPlace);
+
+                matchingBox.innerHTML += `<div class="answer-fill-world" id="matching- question: ${index}" style="margin-bottom: 10px; display:none"></div>`;
+
+            });
+        }
+        
+        display(matchingList);
+        function getAnswer(array) {
+            const arr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
+            var ds = [];
+            var ansList = array.map(element => element.correctAnswer);
+            var qsList = array.map(element => element.qsList);
+            var fakeAnsList = array.map(element => element.options);
+            // console.log(ansList)
+            ansList.forEach((element1, index1) => {
+                fakeAnsList.forEach((element2, index2) => {
+                    if (index1 === index2) {
+                        for (let i = 0; i < element1.length; i++) {
+                            var array = [];
+                            for (let j = 0; j < element2.length; j++) {
+                                if (element1[i].id === element2[j].id) {
+                                    array.push(arr[j]);
+                                }
+                            }
+                            for (let k = 0; k < array.length; k++) {
+                                for (let j = 0; j < element2.length; j++) {
+                                    if (element1[i].ans === element2[j].ans
+                                        && (element1[i].id.slice(0, element1[j].id.indexOf('-')) === element2[i].id.slice(0, element2[j].id.indexOf('-'))))
+                                        if (!array[k].includes(arr[j])) array[k] += arr[j];
+                                }
+                            }
+                            console.log(ds);
+                            ds.push(array);
+                        }
+                    }
+                });
+            });
+            return ds;
+        }
+        
+        document.getElementById("submit-test").addEventListener("click", () => {
+            var answerList = getAnswer(matchingList);
+            var elementqs = Array.from(document.querySelectorAll('.answer-matching input[type="text"]'));
+            var right = document.getElementsByClassName("right-answer-matching");
+            var wrong = document.getElementsByClassName("wrong-answer-matching");
+            var isRight = true;
+            for (let i = 0; i < elementqs.length; i++) {
+                elementqs[i].disabled = true;
+                if (answerList[i].toString().trim().includes(elementqs[i].value.toString()) 
+                    && elementqs[i].value.toString().trim().length>0) {
+                    elementqs[i].style.color = "green";
+                    right[i].style.display = "block";
+                } else {
+                    isRight = false;
+                    elementqs[i].style.color = "red";
+                    wrong[i].style.display = "block";
+                }
+            }
+            for (let i = 0; i < elementqs.length; i++) {
+                const text = `${((i % 10) + 1)}-${answerList[i].toString().split("").sort().join("")}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`;
+                document.getElementById(`matching- question: ${Math.floor(i / 10)}`).innerHTML += text;
+            }
+            for (let i = 0; i < Math.floor((elementqs.length) / 10); i++) {
+                document.getElementById(`matching- question: ${i}`).style.display = "block";
+            }
+        });
+        function submitMatching(){
+            var answerList = getAnswer(matchingList);
+            var elementqs = Array.from(document.querySelectorAll('.answer-matching input[type="text"]'));
+            var right = document.getElementsByClassName("right-answer-matching");
+            var wrong = document.getElementsByClassName("wrong-answer-matching");
+            var isRight = true;
+            for (let i = 0; i < elementqs.length; i++) {
+                elementqs[i].disabled = true;
+                if (answerList[i].toString().trim().includes(elementqs[i].value.toString()) 
+                    && elementqs[i].value.toString().trim().length>0) {
+                    elementqs[i].style.color = "green";
+                    right[i].style.display = "block";
+                } else {
+                    isRight = false;
+                    elementqs[i].style.color = "red";
+                    wrong[i].style.display = "block";
+                }
+            }
+            for (let i = 0; i < elementqs.length; i++) {
+                const text = `${((i % 10) + 1)}-${answerList[i].toString().split("").sort().join("")}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`;
+                document.getElementById(`matching- question: ${Math.floor(i / 10)}`).innerHTML += text;
+            }
+            for (let i = 0; i <= Math.floor((elementqs.length) / 9); i++) {
+                document.getElementById(`matching- question: ${i}`).style.display = "block";
+            }
+        }
+        
+        function check() {
 
         }
-        function create(){
+        function mark() {
 
         }
-        function display(){
-
-        }
-        function ischeck(){
-
-        }
-        function check(){
-
-        }
-        function mark(){
-
-        }
+        const inputs = document.querySelectorAll('.box-answer-matching input');
+        inputs.forEach((input, index) => {
+            input.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    const nextInput = inputs[index + 1];
+                    if (nextInput) {
+                        nextInput.focus();
+                    } else {
+                        alert('Bạn đã điền xong tất cả các khoảng trống!');
+                    }
+                }
+            });
+        });
 
     </script>
 </body>

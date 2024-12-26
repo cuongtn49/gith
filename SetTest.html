@@ -233,7 +233,7 @@
         <li><input type="radio" name="fill-word-method" id="question"> Điền câu hỏi<br></li>
       </ul>
       <input type="checkbox" id="true-false"> Đúng Sai <br>
-      <input type="checkbox" disabled> Nối cột <br>
+      <input type="checkbox" id="matching"> Nối cột <br>
       <input type="checkbox" disabled> Nghe và điền đáp án (nghe tiếng anh) <br>
       <input type="checkbox" disabled> Nghe và chọn đáp án (nghe tiếng anh) <br>
       <input type="checkbox" disabled> Nghe và chọn đúng sai (nghe tiếng anh) <br>
@@ -491,6 +491,7 @@
       const trueFalse = document.getElementById("true-false").checked;
       const question = document.getElementById("question").checked;
       const answer = document.getElementById("answer").checked;
+      const matching = document.getElementById("matching").checked;
       const number = document.getElementById("number-qs").value;
       const time = document.getElementById("time-test").value;
       console.log(multipleChoice);
@@ -500,9 +501,9 @@
       console.log(answer);
       console.log(number);
       console.log(time);
-      const arr = { multipleChoice, fillWord, trueFalse, question, answer, number, time };
+      const arr = { multipleChoice, fillWord, trueFalse, matching, question, answer, number, time };
       console.log(arr);
-      if (multipleChoice || fillWord || trueFalse) {
+      if (multipleChoice || fillWord || trueFalse || matching) {
         if (number <= flashcards.length) {
           if (number >= 1) {
             console.log(saveInput);
@@ -515,22 +516,22 @@
       } else alert("Phải chọn ít nhất một hình thức câu hỏi");
     });
     function test1() {
-      const arr = { multipleChoice: true, fillWord: true, trueFalse: true, question: false, answer: true, number: 10, time: 2 };
+      const arr = { multipleChoice: true, fillWord: true, trueFalse: true, matching: true, question: false, answer: true, number: 10, time: 2 };
       localStorage.setItem("test-structure", JSON.stringify(arr));
       window.location.href = "test.html";
     }
     function test2() {
-      const arr = { multipleChoice: false, fillWord: true, trueFalse: true, question: false, answer: true, number: 10, time: 1 };
+      const arr = { multipleChoice: false, fillWord: true, trueFalse: true, matching: true, question: false, answer: true, number: 10, time: 1 };
       localStorage.setItem("test-structure", JSON.stringify(arr));
       window.location.href = "test.html";
     }
     function test3() {
-      const arr = { multipleChoice: true, fillWord: false, trueFalse: true, question: false, answer: true, number: 10, time: 1 };
+      const arr = { multipleChoice: true, fillWord: false, trueFalse: true, matching: true, question: false, answer: true, number: 10, time: 1 };
       localStorage.setItem("test-structure", JSON.stringify(arr));
       window.location.href = "test.html";
     }
     function test4() {
-      const arr = { multipleChoice: true, fillWord: true, trueFalse: false, question: true, answer: false, number: 10, time: 1 };
+      const arr = { multipleChoice: true, fillWord: true, trueFalse: false, matching: true, question: true, answer: false, number: 10, time: 1 };
       localStorage.setItem("test-structure", JSON.stringify(arr));
       window.location.href = "test.html";
     }
