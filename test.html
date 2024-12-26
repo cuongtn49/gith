@@ -701,13 +701,23 @@
         const inputsMatching = document.querySelectorAll('.box-answer-matching input');
         inputsMatching.forEach((input, index) => {
             input.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter') {
+                // alert(event.key);
+                if (event.key === 'Enter' || event.key === 'ArrowRight') {
                     event.preventDefault();
                     const nextInput = inputsMatching[index + 1];
                     if (nextInput) {
                         nextInput.focus();
                     } else {
                         alert('Bạn đã điền xong tất cả các khoảng trống!');
+                    }
+                }
+                if (event.key === 'ArrowLeft'){
+                    event.preventDefault();
+                    const nextInput = inputsMatching[index - 1];
+                    if (nextInput) {
+                        nextInput.focus();
+                    } else {
+                        
                     }
                 }
             });
