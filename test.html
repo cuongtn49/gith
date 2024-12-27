@@ -124,6 +124,13 @@
         color: black;
         font-weight: 600;
     }
+
+    .locked {
+        pointer-events: none;
+        /* Vô hiệu hóa mọi thao tác chuột */
+        /* opacity: 0.6; */
+        /* Làm mờ các phần tử bị khóa */
+    }
 </style>
 
 <body>
@@ -261,6 +268,7 @@
                 document.getElementById("countdown").style.display = "none";
                 document.getElementById("number-mark").style.display = "block";
                 document.getElementById("number-mark").textContent = parseFloat(((mark / numberQuestion) * 10).toFixed(1));
+                lockInput();
             } else return;
             clearInterval(interval);
             timeLeft = 0;
@@ -281,6 +289,16 @@
             document.getElementById("countdown").style.display = "none";
             document.getElementById("number-mark").style.display = "block";
             document.getElementById("number-mark").textContent = parseFloat(((mark / numberQuestion) * 10).toFixed(1));
+            lockInput();
+        }
+
+        function lockInput() {
+            const inputs = document.getElementsByTagName("input");
+            console.log(inputs);
+            for (let i = 0; i < inputs.length; i++) {
+                inputs[i].disabled = true;
+            }
+            document.body.className = "locked";
         }
 
         function multipleChoiceQuestion(flashcards, n) {
@@ -736,6 +754,7 @@
                     if (inputAnswer[index]) { // Nếu input tại vị trí index tồn tại
                         activeInputIndex = index; // Lưu vị trí ô input đang được chọn
                         inputAnswer[index].focus(); // Đặt focus vào ô input
+                        element.style.background = "rgba(255, 0, 0, 0.1)";
                     }
                 });
             });
@@ -744,10 +763,10 @@
             ansColumn.forEach((element, index) => {
                 element.addEventListener("click", () => {
                     if (activeInputIndex !== null && inputAnswer[activeInputIndex]) {
-                         // Kiểm tra vị trí input đang thao tác
+                        // Kiểm tra vị trí input đang thao tác
                         inputAnswer[activeInputIndex].value = arr[index % 10]; // Gán giá trị từ danh sách
                         // Thay đổi màu nền (tùy chọn)
-                        // element.style.background = "rgba(0, 121, 107, 0.2)";
+                        element.style.background = "rgba(255, 0, 0, 0.1)";
                         inputAnswer[activeInputIndex].focus();
                     } else {
                         console.warn("Không có ô input nào được chọn!");

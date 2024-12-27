@@ -183,7 +183,11 @@
 }
 .box-matching div{
     flex: 0 0 95%;
+    width: 300px;
     padding-left: 20px;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    white-space: nowrap;
     /* border: 1px solid black; */
 }
 .box-answer-matching input[type="text"]:focus {
