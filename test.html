@@ -215,12 +215,12 @@
                 document.getElementById("true-false-format").style.display = "none";
             }
 
-            if (testStructure.matching.toString() === "true"){
+            if (testStructure.matching.toString() === "true") {
                 numberQuestion += parseInt(testStructure.number);
-                var matching = matchingQuestion(flashcards,testStructure.number);
+                var matching = matchingQuestion(flashcards, testStructure.number);
                 exportMatchingQuestion(matching);
             } else {
-                document.getElementById("matching-format").style.display ="none";
+                document.getElementById("matching-format").style.display = "none";
             }
 
         } else {
@@ -235,7 +235,7 @@
         if (timeLeft > 0) {
             interval = setInterval(() => {
                 const minutes = Math.floor(timeLeft / 60);
-                const seconds = timeLeft % 60; 
+                const seconds = timeLeft % 60;
                 countdownElement.textContent = `Thời gian: ${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
                 timeLeft--;
 
@@ -332,7 +332,7 @@
         function trueFalseQuestion(flashcards, n) {
             if (n > flashcards.length) {
                 console.warn("Số lượng câu hỏi yêu cầu lớn hơn số câu có trong CSDL! Sẽ sử dụng tối đa số câu hiện có.");
-                return[];
+                return [];
                 // n = flashcards.length;
             }
 
@@ -393,7 +393,7 @@
                 };
             });
         }
-        
+
 
         function exportMultipleChoiceQuestion(questionData) {
             const multipleChoice = document.getElementById("multiple-choice-format");
@@ -510,7 +510,7 @@
 
             });
         }
-        
+
         function submitMultipleChoice(questionData) {
             for (let i = 0; i < questionData.length; i++) {
                 const selectedOption = document.querySelectorAll(`input[name="${i}multiple-choice"]`);
@@ -585,10 +585,10 @@
                 const selectedOption = document.querySelector(`input[name="${i}fill-word"]`);
 
                 if (selectedOption) {
-                        const yourAnswer = selectedOption.value.trim();
-                        const correct = questionData[i].correctAnswer.split(",").map(a => a.trim());
-                        const yourAnswerList = yourAnswer.split(",").map(a => a.trim());
-                        const isRight = yourAnswerList.every(ans => correct.includes(ans));
+                    const yourAnswer = selectedOption.value.trim();
+                    const correct = questionData[i].correctAnswer.split(",").map(a => a.trim());
+                    const yourAnswerList = yourAnswer.split(",").map(a => a.trim());
+                    const isRight = yourAnswerList.every(ans => correct.includes(ans));
 
                     if (isRight) {
                         mark++;
@@ -639,7 +639,7 @@
             });
             return ds;
         }
-        function submitMatching(matchingList){
+        function submitMatching(matchingList) {
             var answerList = getAnswer(matchingList);
             var elementqs = Array.from(document.querySelectorAll('.answer-matching input[type="text"]'));
             var right = document.getElementsByClassName("right-answer-matching");
@@ -647,9 +647,9 @@
             var isRight = true;
             for (let i = 0; i < elementqs.length; i++) {
                 elementqs[i].disabled = true;
-                if (answerList[i].toString().trim().includes(elementqs[i].value.toString()) 
-                    && elementqs[i].value.toString().trim().length>0) {
-                mark++;
+                if (answerList[i].toString().trim().includes(elementqs[i].value.toString())
+                    && elementqs[i].value.toString().trim().length > 0) {
+                    mark++;
                     elementqs[i].style.color = "green";
                     right[i].style.display = "block";
                 } else {
@@ -666,7 +666,7 @@
                 document.getElementById(`matching- question: ${i}`).style.display = "block";
             }
         }
-        
+
 
         // window.addEventListener("beforeunload", (event) => {
         //     event.preventDefault(); // Ngăn hành vi mặc định
@@ -711,15 +711,22 @@
                         alert('Bạn đã điền xong tất cả các khoảng trống!');
                     }
                 }
-                if (event.key === 'ArrowLeft'){
+                if (event.key === 'ArrowLeft') {
                     event.preventDefault();
                     const nextInput = inputsMatching[index - 1];
                     if (nextInput) {
                         nextInput.focus();
                     } else {
-                        
+
                     }
                 }
+            });
+        });
+
+        const choose = document.getElementsByClassName("box-matching");
+        Array.from(choose).forEach(element => {
+            element.addEventListener("click", () => {
+                element.style.background = "rgb(0, 121, 107, 0.2)";
             });
         });
 
