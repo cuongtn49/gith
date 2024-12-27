@@ -723,12 +723,42 @@
             });
         });
 
-        const choose = document.getElementsByClassName("box-matching");
-        Array.from(choose).forEach(element => {
-            element.addEventListener("click", () => {
-                element.style.background = "rgb(0, 121, 107, 0.2)";
+        function fillMatching() {
+            const qsColumn = document.querySelectorAll(".column1-matching .box-matching");
+            const inputAnswer = document.querySelectorAll(".answer-matching input");
+            const ansColumn = document.querySelectorAll(".column2-matching .box-matching");
+            const arr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L']; // Danh sách ký tự
+            let activeInputIndex = null; // Biến để lưu vị trí ô input đang thao tác
+
+            // Gắn sự kiện click cho các ô trong cột 1 (qsColumn)
+            qsColumn.forEach((element, index) => {
+                element.addEventListener("click", () => {
+                    if (inputAnswer[index]) { // Nếu input tại vị trí index tồn tại
+                        activeInputIndex = index; // Lưu vị trí ô input đang được chọn
+                        inputAnswer[index].focus(); // Đặt focus vào ô input
+                    }
+                });
             });
-        });
+
+            // Gắn sự kiện click cho các ô trong cột 2 (ansColumn)
+            ansColumn.forEach((element, index) => {
+                element.addEventListener("click", () => {
+                    if (activeInputIndex !== null && inputAnswer[activeInputIndex]) {
+                         // Kiểm tra vị trí input đang thao tác
+                        inputAnswer[activeInputIndex].value = arr[index % 10]; // Gán giá trị từ danh sách
+                        // Thay đổi màu nền (tùy chọn)
+                        // element.style.background = "rgba(0, 121, 107, 0.2)";
+                        inputAnswer[activeInputIndex].focus();
+                    } else {
+                        console.warn("Không có ô input nào được chọn!");
+                    }
+                });
+            });
+        }
+        fillMatching();
+
+
+
 
         localStorage.removeItem("test-structure");
 
