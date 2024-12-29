@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPA Pronunciation</title>
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .ipa-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
+        }
+
+        .ipa-symbol {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #4caf50;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #ffffff;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .ipa-symbol:hover {
+            background-color: #e8f5e9;
+        }
+
+        .ipa-symbol span {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>IPA Pronunciation with Sound</h1>
+    <p>Click on any IPA symbol to hear its pronunciation:</p>
+
+    <div class="ipa-container">
+        <div class="ipa-symbol" onclick="speakIPA('i')">i<span>Close Front</span></div>
+        <div class="ipa-symbol" onclick="speakIPA('ɪ')">ɪ<span>Near-close Front</span></div>
+        <div class="ipa-symbol" onclick="speakIPA('e')">e<span>Close-mid Front</span></div>
+        <div class="ipa-symbol" onclick="speakIPA('æ')">æ<span>Near-open Front</span></div>
+        <div class="ipa-symbol" onclick="speakIPA('u')">u<span>Close Back</span></div>
+        <div class="ipa-symbol" onclick="speakIPA('ʊ')">ʊ<span>Near-close Back</span></div>
+    </div>
+
+    <script>
+        function speakIPA(ipa) {
+            // Khởi tạo speech synthesis
+            const synth = window.speechSynthesis;
+
+            // Tạo một đối tượng SpeechSynthesisUtterance
+            const utterance = new SpeechSynthesisUtterance(ipa);
+
+            // Cài đặt ngôn ngữ và tốc độ đọc
+            utterance.lang = "en-US";
+            utterance.rate = 0.8;
+
+            // Phát âm
+            synth.speak(utterance);
+        }
+    </script>
+</body>
+</html>

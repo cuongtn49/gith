@@ -225,7 +225,7 @@
             if (limitLength) answer.maxLength = list[index].answer.length;
         }
         function checkedAnswer(data) {
-            const yourAnswer = answer.value.trim();
+            const yourAnswer = answer.value.trim().toLowerCase();
             const correctAnswers = data[index].answer.split(",").map(a => a.trim());
             const yourAnswerList = yourAnswer.split(",").map(a => a.trim());
             const isRight = yourAnswerList.every(ans => correctAnswers.includes(ans));

@@ -603,12 +603,12 @@
                 const selectedOption = document.querySelector(`input[name="${i}fill-word"]`);
 
                 if (selectedOption) {
-                    const yourAnswer = selectedOption.value.trim();
+                    const yourAnswer = selectedOption.value.trim().toLowerCase();
                     const correct = questionData[i].correctAnswer.split(",").map(a => a.trim());
                     const yourAnswerList = yourAnswer.split(",").map(a => a.trim());
                     const isRight = yourAnswerList.every(ans => correct.includes(ans));
 
-                    if (isRight) {
+                    if (isRight && yourAnswer.length>0) {
                         mark++;
                         selectedOption.style.backgroundColor = "rgba(0, 255, 0, 0.2)";
                         const element = document.getElementById(`${i}question-fill-word`);

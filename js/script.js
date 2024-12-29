@@ -1,5 +1,6 @@
 var flashcards = JSON.parse(localStorage.getItem("data")) || [];
-console.log(flashcards);
+// console.log(flashcards);
+var original = flashcards;
 
 let currentIndex = 0;
 
@@ -11,6 +12,26 @@ const flipBtn = document.getElementById("flip-btn");
 const switchToQuizBtn = document.getElementById("switch-to-quiz-btn");
 const beginningCart = document.getElementById("to-the-beginning-btn");
 const endCart = document.getElementById("to-the-end-btn");
+
+function blendedFlashcard() {
+  const blended = document.getElementById("blended-flashcard");
+  const img = document.getElementById("blended-img");
+
+    blended.addEventListener('change', () => {
+      if (blended.checked) {
+        flashcards = flashcards.map(element => element).sort(() => Math.random() - 0.5);
+        img.src = "./image/random.png";
+        showFlashcard();
+        
+      } else {
+        flashcards = original;
+        img.src = "./image/random1.png";
+        showFlashcard();
+      }
+    });
+    
+}
+blendedFlashcard();
 
 function showFlashcard() {
   questionEl.textContent = flashcards[currentIndex].question;
@@ -60,7 +81,7 @@ endCart.addEventListener("click", () => {
 });
 
 const position = document.getElementById("card-location");
-function displayPosition(){
+function displayPosition() {
   position.textContent = (currentIndex + 1) + "/" + flashcards.length;
 }
 position.textContent = (currentIndex + 1) + "/" + flashcards.length;
@@ -101,7 +122,6 @@ document.addEventListener("keydown", function (event) {
       displayPosition();
       break;
     default:
-      resultElement.textContent = "Đây không phải là phím mũi tên.";
       break;
   }
 });

@@ -1,0 +1,50 @@
+.copy-box {
+    position: relative;
+    width: 300px;
+    padding: 20px;
+    margin: 20px auto;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .copy-box:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .copy-box p {
+    margin: 0;
+    word-wrap: break-word;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+
+  .copy-btn:hover {
+    background-color: #0056b3;
+  }
+
+  .copy-notification {
+    margin-top: 10px;
+    font-size: 14px;
+    color: green;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .copy-notification.active {
+    opacity: 1;
+  }

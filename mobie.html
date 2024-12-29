@@ -9,7 +9,10 @@
     <!-- <link rel="stylesheet" href="styles.css"> -->
     <!-- <link rel="stylesheet" href="./css/home.css"> -->
     <!-- <link rel="stylesheet" href="./css/style.css"> -->
-    <link rel="stylesheet" href="./framework/css/appversion2.css">
+    <link rel="stylesheet" href="./css/flashcardData.css">
+    <!-- <link rel="stylesheet" href="./framework/css/mobie.css"> -->
+    <!-- <link rel="stylesheet" href="./css/copy.css"> -->
+
 </head>
 <style>
     /* Reset mặc định */
@@ -189,15 +192,17 @@
         margin: 0 40px;
         /* border: 1px solid red; */
     }
+
     /* .list-group .button-flash:hover{
         box-shadow: 0 0 10px 10px rgb(255, 69, 0);
         background: rgb(255, 69, 0);
     } */
 
-    .group1{
+    .group1 {
         margin-top: 15px;
     }
-    .group2{
+
+    .group2 {
         margin-top: 15px;
     }
 
@@ -288,7 +293,7 @@
             flex-direction: row;
             justify-content: space-between;
             margin: 0 5px;
-            
+
         }
 
         .list-group div {
@@ -312,6 +317,15 @@
         .button-flash {
             margin: 10px 0;
         }
+    }
+
+    body {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    body.show {
+        opacity: 1;
     }
 </style>
 
@@ -397,13 +411,52 @@
                     </div>
             </section>
             <section id="about">
+                <div class="list-group">
+                    <div>
+                        <input type="checkbox" id="display-and-change-data" style="display: none;">
+                        <label for="display-and-change-data"><img class="icon-flash" id="writer-img"
+                                src="./image/writer.png" alt=""></label>
+                    </div>
 
+                    <div id="display-data"><img class="icon-flash" src="./image/data-analytics.png" alt=""></div>
 
+                    <div onclick="toIPA()"><img class="icon-flash" src="./image/diction.png" alt=""></div>
+
+                    <div>
+                        <input id="blended-flashcard" type="checkbox" style="display: none;">
+                        <label for="blended-flashcard"><img class="icon-flash" id="blended-img"
+                                src="./image/random1.png" alt=""></label>
+                    </div>
+                </div>
             </section>
-            <section id="services">
+            <div id="output-box" class="output-box" style="display: none;">
+                <div class="cancel-display-ouput-box" id="cancel-display-ouput-box">X</div>
+                <div><button class="copy-btn" onclick="copyContent()">Copy</button></div>
+                <div class="title-output">Xuất</div>
+                <textarea name="" id="box-copy-data"></textarea>
+                <div id="notification" class="copy-notification" style="display: none;">Content copied to clipboard!
+                </div>
+            </div>
+            <div id="change-data-box" style="display: none;">
+                <div id="display-flashcard-data">
+                    <div class="box-data-flashcard">
+                        <div class="data-order">No. 1</div>
+                        <input class="question-data" type="text" placeholder="Question">
+                        <input class="answer-data" type="text" placeholder="Answer">
+                    </div>
+                </div>
+                <div class="confirm-change-data">
+                    <button id="save-change">Lưu</button>
+                    <button id="cancel-change">Hủy</button>
+                </div>
+
+
+            </div>
+
+            <!-- <section id="services">
             </section>
             <section id="contact">
-            </section>
+            </section> -->
         </div>
     </main>
 </body>
@@ -426,6 +479,9 @@
     function toMultipleChoice() {
         window.location.href = "MultipleChoice.html";
     }
+    function toIPA(){
+        window.location.href = "ipa.html";
+    }
 
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -440,5 +496,7 @@
 
 </script>
 <script src="./js/script.js"></script>
+<script src="./js/displayDataFlashcard.js"></script>
+<script src="./js/load.js"></script>
 
 </html>
