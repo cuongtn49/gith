@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="shortcut icon" href="./image/logo1.png" type="image/x-icon">
+    <title>Ghép thẻ</title>
 </head>
 <style>
     /* body{
@@ -123,6 +124,7 @@
         var mega = flashcards.map(element => element).sort(() =>  Math.random() - 0.5).sort(() => Math.random() - 0.5);
         var temporaryValue = null;
         var item = null;
+        var count  = 0;
         function display(data, n) {
             const column1 = document.getElementById("column1");
             column1.innerHTML = "";
@@ -150,8 +152,14 @@
             item2.forEach(item => column2.appendChild(item));
 
         }
-        if (mega.length>=20) display(mega, 20);
-        else display(mega, mega.length);
+        if (mega.length>=20) {
+            display(mega, 20);
+            count = 20;
+        }
+        else {
+            display(mega, mega.length);
+            count = mega.length;
+        }
 
         const column1 = document.querySelectorAll("#card #column1 .item");
         column1.forEach(element => {
@@ -163,12 +171,16 @@
                 }
                 if (temporaryValue && item) {
                     if (temporaryValue === element.id && temporaryValue !== element.textContent) {
+                        count--;
                         setTimeout(() => {
                             item.style.visibility = "hidden";
                             element.style.visibility = "hidden";
                             item = null;
                             temporaryValue = null;
                         }, 500);
+                        if (count === 0) alert("Bạn đã hoàn thành");
+                        alert(count);
+                        
                     } else if (temporaryValue === element.textContent) {
 
                     } else {
@@ -192,11 +204,14 @@
                 if (temporaryValue && item) {
                     if (temporaryValue === element.id && temporaryValue !== element.textContent) {
                         setTimeout(() => {
+                            count--;
                             item.style.visibility = "hidden";
                             element.style.visibility = "hidden";
                             item = null;
                             temporaryValue = null;
                         }, 500);
+                        if (count === 0) alert("Bạn đã hoàn thành");
+                        alert(count);
 
                     } else if (temporaryValue === element.textContent) {
 
