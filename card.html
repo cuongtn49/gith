@@ -50,6 +50,7 @@
     </div>
     <script>
         var flashcards = JSON.parse(localStorage.getItem("data")) || [];
+        var mega = flashcards.map(element => element).sort(() =>  Math.random() - 0.5).sort(() => Math.random() - 0.5);
         var temporaryValue = null;
         var item = null;
         function display(data, n) {
@@ -79,7 +80,7 @@
             item2.forEach(item => column2.appendChild(item));
 
         }
-        display(flashcards, 20);
+        display(mega, 20);
         const column1 = document.querySelectorAll("#card #column1 .item");
         column1.forEach(element => {
             element.addEventListener("click", () => {
