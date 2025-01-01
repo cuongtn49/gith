@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #card {
+        display: flex;
+        padding: 50px;
+    }
+
+    #column1,
+    #column2 {
+        flex: 1;
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        width: 100px;
+        height: 100px;
+        border: 1px solid orangered;
+        flex-wrap: wrap;
+    }
+
+    .item:hover {
+        background: rgb(255, 165, 0, 0.5);
+    }
+</style>
+
+<body>
+    <div id="card">
+        <div id="column1">
+            <div class="item">protect</div>
+        </div>
+        <div id="column2">
+            <div class="item">bảo vệ</div>
+        </div>
+    </div>
+    <script>
+        var flashcards = JSON.parse(localStorage.getItem("data")) || [];
+        var temporaryValue = null;
+        var item = null;
+        function display(data, n) {
+            const column1 = document.getElementById("column1");
+            column1.innerHTML = "";
+            for (let i = 0; i < n; i++) {
+                const div = document.createElement("div");
+                div.innerHTML = `<div class="item" id="${data[i].answer}">${data[i].question}</div>`;
+                column1.appendChild(div);
+            }
+            const item1 = Array.from(document.querySelectorAll("#column1 .item"));
+            item1.sort(() => Math.random() - 0.5);
+            column1.innerHTML = "";
+            item1.forEach(item => column1.appendChild(item));
+
+            const column2 = document.getElementById("column2");
+            column2.innerHTML = "";
+            for (let i = 0; i < n; i++) {
+                const div = document.createElement("div");
+                div.innerHTML = `<div class="item" id="${data[i].question}">${data[i].answer}</div>`;
+                column2.appendChild(div);
+            }
+
+            const item2 = Array.from(document.querySelectorAll("#column2 .item"));
+            item2.sort(() => Math.random() - 0.5);
+            column2.innerHTML = "";
+            item2.forEach(item => column2.appendChild(item));
+
+        }
+        display(flashcards, 20);
+        const column1 = document.querySelectorAll("#card #column1 .item");
+        column1.forEach(element => {
+            element.addEventListener("click", () => {
+                element.style.background = "rgb(255, 165, 0, 0.5)";
+                if (!temporaryValue && !item) {
+                    temporaryValue = element.textContent;
+                    item = element;
+                }
+                if (temporaryValue && item) {
+                    if (temporaryValue === element.id && temporaryValue !== element.textContent) {
+                        setTimeout(() => {
+                            item.style.visibility = "hidden";
+                            element.style.visibility = "hidden";
+                            item = null;
+                            temporaryValue = null;
+                        }, 500);
+                    } else if (temporaryValue === element.textContent) {
+
+                    } else {
+                        element.style.background = "rgb(255, 255, 255)";
+                        item.style.background = "rgb(255, 255, 255)";
+                        item = null;
+                        temporaryValue = null;
+                    }
+                }
+            });
+        });
+
+        const column2 = document.querySelectorAll("#card #column2 .item");
+        column2.forEach(element => {
+            element.addEventListener("click", () => {
+                element.style.background = "rgb(255, 165, 0, 0.5)";
+                if (!temporaryValue && !item) {
+                    temporaryValue = element.textContent;
+                    item = element;
+                }
+                if (temporaryValue && item) {
+                    if (temporaryValue === element.id && temporaryValue !== element.textContent) {
+                        setTimeout(() => {
+                            item.style.visibility = "hidden";
+                            element.style.visibility = "hidden";
+                            item = null;
+                            temporaryValue = null;
+                        }, 500);
+
+                    } else if (temporaryValue === element.textContent) {
+
+                    } else {
+                        element.style.background = "rgb(255, 255, 255)";
+                        item.style.background = "rgb(255, 255, 255)";
+                        item = null;
+                        temporaryValue = null;
+                    }
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>

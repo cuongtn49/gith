@@ -1,4 +1,5 @@
 var flashcards = JSON.parse(localStorage.getItem("data")) || [];
+// localStorage.removeItem("data");
 const displayFlashcardData = document.getElementById("display-flashcard-data");
 const copydata = document.getElementById("box-copy-data");
 const savechange = document.getElementById("save-change");
