@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <style>
-    body{
+    /* body{
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     #card {
@@ -32,15 +32,82 @@
         height: 100px;
         border: 1px solid orangered;
         flex-wrap: wrap;
-        overflow: hidden; /* Ẩn phần tràn */
-        /* white-space: nowrap; */
-        text-overflow: ellipsis; /* Hiển thị dấu "..." nếu chữ tràn */
+        overflow: hidden;
+        text-overflow: ellipsis; 
     }
 
     .item:hover {
         background: rgb(255, 165, 0, 0.5);
+    } */
+
+</style>
+<style>
+    /* Toàn bộ trang */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        /* background: #f4f4f9; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    #card {
+        display: flex;
+        gap: 30px;
+        padding: 20px;
+        background: #fff;
+        /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+        border-radius: 10px;
+    }
+
+    #column1,
+    #column2 {
+        flex: 1;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        align-content: flex-start;
+    }
+
+    .item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 100px;
+        height: 100px;
+        border: 2px solid #ff5722;
+        /* border-radius: 8px; */
+        background: linear-gradient(145deg, #fff, #f2f2f2);
+        color: #333;
+        font-size: 14px;
+        /* font-weight: 500; */
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+    }
+
+    .item:hover {
+        background: #ffebd7;
+        transform: scale(1.05);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .item:active {
+        transform: scale(0.95);
+        background: #ffe1c4;
+    }
+
+    .item.hidden {
+        visibility: hidden;
     }
 </style>
+
 
 <body>
     <div id="card">
