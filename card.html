@@ -150,7 +150,9 @@
             item2.forEach(item => column2.appendChild(item));
 
         }
-        display(mega, 20);
+        if (mega.length>=20) display(mega, 20);
+        else display(mega, mega.length);
+
         const column1 = document.querySelectorAll("#card #column1 .item");
         column1.forEach(element => {
             element.addEventListener("click", () => {
