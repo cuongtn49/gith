@@ -40,7 +40,6 @@
     .item:hover {
         background: rgb(255, 165, 0, 0.5);
     } */
-
 </style>
 <style>
     /* Toàn bộ trang */
@@ -121,10 +120,10 @@
     </div>
     <script>
         var flashcards = JSON.parse(localStorage.getItem("data")) || [];
-        var mega = flashcards.map(element => element).sort(() =>  Math.random() - 0.5).sort(() => Math.random() - 0.5);
+        var mega = flashcards.map(element => element).sort(() => Math.random() - 0.5).sort(() => Math.random() - 0.5);
         var temporaryValue = null;
         var item = null;
-        var count  = 0;
+        var count = 0;
         function display(data, n) {
             const column1 = document.getElementById("column1");
             column1.innerHTML = "";
@@ -152,7 +151,7 @@
             item2.forEach(item => column2.appendChild(item));
 
         }
-        if (mega.length>=20) {
+        if (mega.length >= 20) {
             display(mega, 20);
             count = 20;
         }
@@ -177,10 +176,12 @@
                             element.style.visibility = "hidden";
                             item = null;
                             temporaryValue = null;
-                            if (count === 0) alert("Bạn đã hoàn thành");
+                            setTimeout(() => {
+                                if (count === 0) alert("Bạn đã hoàn thành");
+                            }, 500);
                         }, 500);
-                        
-                        
+
+
                     } else if (temporaryValue === element.textContent) {
 
                     } else {
@@ -192,7 +193,6 @@
                 }
             });
         });
-
         const column2 = document.querySelectorAll("#card #column2 .item");
         column2.forEach(element => {
             element.addEventListener("click", () => {
@@ -209,11 +209,11 @@
                             element.style.visibility = "hidden";
                             item = null;
                             temporaryValue = null;
+                            setTimeout(() => {
+                                if (count === 0) alert("Bạn đã hoàn thành");
+                            }, 500);
                         }, 500);
-                        setTimeout(() => {
-                            if (count === 0) alert("Bạn đã hoàn thành");
-                        }, 100);
-                        
+
                     } else if (temporaryValue === element.textContent) {
 
                     } else {
