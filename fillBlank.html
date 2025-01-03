@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .fill-blank-box {
+        display: flex;
+        gap: 5px;
+        margin-left: 20px;
+    }
+
+    .fill-blank-box input {
+        width: 20px;
+        border: none;
+        outline: none;
+        border-bottom: 2px solid silver;
+        color: silver;
+        font-size: 20px;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    #box {
+        display: flex;
+
+
+    }
+</style>
+
+<body>
+    <div id="box">
+        <div class="fill-blank-box">
+            <input type="text">
+        </div>
+        <div class="fill-blank-box">
+            <input type="text">
+            <input type="text">
+        </div>
+        <div class="fill-blank-box">
+            <input type="text">
+        </div>
+        <div class="fill-blank-box">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+        </div>
+    </div>
+    <script>
+        var yourAnswer = "";
+        var answer = "iamastudent";
+        const inputs = document.querySelectorAll("#box input");
+        inputs[0].focus();
+        Array.from(inputs).forEach((element, index) => {
+            element.addEventListener('keydown', (event) => {
+                if (element.value !== "") {
+                    const nextInput = inputs[index + 1];
+                    if (nextInput) {
+                        nextInput.focus();
+                    }
+                    setTimeout(() => {
+                        if (index === inputs.length - 2) {
+                            Array.from(inputs).forEach((element, index) => {
+                                // yourAnswer += element.value;
+                                element.disabled = true;
+                                if (element.value.toLowerCase() !== answer[index].toLowerCase()) element.style.color = "red";
+                                else element.style.color = "green";
+                            });
+                            // console.log(yourAnswer);
+                        }
+                    }, 100);
+
+                }
+            });
+
+        });
+    </script>
+</body>
+
+</html>
