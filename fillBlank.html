@@ -4,21 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./image/logo1.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/fillblank.css">
     <title>Document</title>
 </head>
 <style>
-     .choices-container input[type="radio"] {
-            opacity: 0;
-            position: absolute;
-            pointer-events: none;
-        }
-
-    #box{
-       display: flex; 
-       justify-content: center;
-       color: black;
+    .choices-container input[type="radio"] {
+        opacity: 0;
+        position: absolute;
+        pointer-events: none;
     }
+
+    #box {
+        display: flex;
+        justify-content: center;
+        color: black;
+    }
+
     .fill-blank-box {
         display: flex;
         gap: 5px;
@@ -42,22 +44,16 @@
         display: flex;
     }
 </style>
+
 <body>
     <div id="app-container">
-        <div class="settings-section" id="settings-container" style="display: none;">
+        <div class="settings-section" id="settings-container">
             <h2>Cài đặt chế độ</h2>
-            <label>
-                <input type="radio" name="mode-selection" value="answer" id="mode-answer" checked /> Điền đáp án
-            </label>
-            <label>
-                <input type="radio" name="mode-selection" value="question" id="mode-question" /> Điền câu hỏi
-            </label>
             <label>
                 <input type="checkbox" name="options" value="random" id="option-random" /> Câu hỏi ngẫu nhiên
             </label>
             <label>
-                <input type="checkbox" name="options" value="limit-length" id="option-limit-length" checked /> Giới hạn
-                ký tự
+                <input type="checkbox" name="options" value="" id="tudong" /> Tự động chuyển câu hỏi
             </label>
             <br />
             <label>
@@ -69,18 +65,23 @@
             </button>
         </div>
 
-        <div class="content-section" id="quiz-container">
-            <h2 class="instructions-text">question 1</h2>
-            <h3 class="display-question">Tiếng Anh</h3>
+        <div class="content-section" id="quiz-container" style="display: none;">
+            <h2 class="instructions-text" id="number-qs">question 1</h2>
+            <h3 class="display-question" id="meaning">Tiếng Anh</h3>
             <!-- <input type="text" id="user-input" placeholder="Nhập câu trả lời tại đây..." autocomplete="off" /> -->
-             <div id="box"></div>
-            <p class="feedback-message" style="visibility: hidden;">Thông báo kết quả</p>
+            <div id="box"></div>
+            <p class="feedback-message" id="feedback-message" style="visibility: hidden;">Thông báo kết quả</p>
             <div class="control-buttons">
-                <button class="action-button" id="submit-button">Gửi</button>
+                <button class="action-button" id="answer-button">Đáp án</button>
+                <button class="action-button" id="again-button">Nhập lại</button>
                 <button class="action-button" id="next-button">Tiếp theo</button>
+                <div>
+                    <img id="automatic1" src="image/auto.png" alt="" style="width: 40px;">
+                    <img id="automatic2" src="image/auto (1).png" alt="" style="width: 40px; display: none;">
+                </div>
             </div>
         </div>
-        <div class="completion-message" style="display: none;">
+        <div class="completion-message" id="completion-message" style="display: none;">
             🎉 Bạn đã hoàn thành xuất sắc! 🎉
             <span>Chúc mừng bạn với kết quả tuyệt vời!</span>
             <span class="score-display" id="score-display" style="font-weight: 900;">Điểm số: 0</span>
@@ -88,7 +89,7 @@
             <span class="wrong-count" id="wrong-count">Số câu sai: 0</span>
         </div>
 
-        <div class="detailed-review" style="display: none;">
+        <div class="detailed-review" id="detailed-review" style="display: none;">
             <h2>Kết quả Chi Tiết</h2>
             <table class="review-data" id="review-data">
                 <thead>
@@ -101,45 +102,75 @@
                 </thead>
                 <tbody class="table-body" id="table-body">
                     <!-- Các hàng dữ liệu sẽ được thêm vào đây -->
-                     <tr>
+                    <tr>
                         <td>1</td>
                         <td>question 1</td>
-                        <td>your answer</td>
-                        <td>answer</td>
-                     </tr>
+                        <td>your word</td>
+                        <td>word</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
     <!-- <script src="../js/app.js"></script> -->
     <script>
-        const buttons = document.querySelectorAll(".choice-button");
-        buttons.forEach(button => {
-            button.addEventListener("click", () => {
-                // Xóa trạng thái 'checked' của tất cả nút
-                buttons.forEach(btn => btn.classList.remove("checked"));
-                // Thêm trạng thái 'checked' cho nút được nhấn
-                button.classList.add("checked");
-            });
+        // alert("Chức năng này còn đang trong quá trình hoàn thiện!");
+
+        var flashcards = JSON.parse(localStorage.getItem("data")) || [];
+        var index = 0;
+        var tudong = null;
+        var socau = null;
+        document.getElementById("question-count").value = flashcards.length;
+
+        const number = document.getElementById("number-qs");
+        const mean = document.getElementById("meaning");
+        const nextbtn = document.getElementById("next-button");
+
+        const displayanswer = document.getElementById("feedback-message");
+
+        document.getElementById("start-button").addEventListener("click", () => {
+            socau = document.getElementById("question-count").value;
+            tudong = document.getElementById("tudong").checked;
+            const ngaunhien = document.getElementById("option-random").checked;
+
+            if (socau > flashcards.length || socau <= 0) {
+                alert("Số câu không hợp lệ!");
+            } else {
+                if (ngaunhien) flashcards = flashcards.sort(() => Math.random() - 0.5);
+                if (tudong) automatic();
+                begin();
+            }
         });
 
-        var yourAnswer = "";
-        var answer = "english";
-        function display(){
+        function begin() {
+            document.getElementById("settings-container").style.display = "none";
+            document.getElementById("quiz-container").style.display = "block";
+            display(flashcards[index].question, flashcards[index].answer);
+            check(flashcards[index].question);
+        }
+
+
+        function display(word, meaning) {
+            number.textContent = `question ${index + 1}`;
+            mean.textContent = meaning;
+
+
+
+            document.getElementById("box").innerHTML = "";
             const div = document.createElement("div");
             div.className = "fill-blank-box";
-            for (let i=0;i<answer.length;i++){
+            for (let i = 0; i < word.length; i++) {
                 const input = document.createElement("div");
                 input.innerHTML = `<input type="text" maxlength="1">`;
                 div.appendChild(input);
             }
             document.getElementById("box").appendChild(div);
         }
-        display();
-        check();
-        function check() {
+
+        function check(word) {
             const inputs = document.querySelectorAll("#box input");
             inputs[0].focus();
+            var ischeck = true;
             Array.from(inputs).forEach((element, index) => {
                 element.addEventListener('keydown', (event) => {
                     if (element.value !== "") {
@@ -150,19 +181,70 @@
                         setTimeout(() => {
                             if (index === inputs.length - 2) {
                                 Array.from(inputs).forEach((element, index) => {
-                                    // yourAnswer += element.value;
                                     element.disabled = true;
-                                    if (element.value.toLowerCase() !== answer[index].toLowerCase()) element.style.color = "red";
+                                    if (element.value.toLowerCase() !== word[index].toLowerCase()) {
+                                        element.style.color = "red";
+                                        ischeck = false;
+                                    }
                                     else element.style.color = "green";
                                 });
-                                // console.log(yourAnswer);
+                                if (tudong && ischeck) {
+                                    setTimeout(() => {
+                                        next();
+                                    }, 1000);
+                                }
+
                             }
                         }, 100);
                     }
                 });
             });
-
         }
+        function next() {
+            if (index < socau - 1) {
+                index++;
+                displayanswer.style.visibility = "hidden";
+                display(flashcards[index].question, flashcards[index].answer);
+                check(flashcards[index].question);
+            } else {
+                document.getElementById("quiz-container").style.display = "none";
+                document.getElementById("completion-message").style.display = "block";
+                document.getElementById("detailed-review").style.display = "block";
+
+            }
+        }
+
+        function nextBtn() {
+            nextbtn.addEventListener("click", () => {
+                next();
+            })
+        }
+        if (!tudong) nextBtn();
+
+        document.getElementById("answer-button").addEventListener("click", () => {
+            displayanswer.textContent = flashcards[index].question;
+            displayanswer.style.visibility = "visible";
+        });
+
+        document.getElementById("again-button").addEventListener("click", () => {
+            display(flashcards[index].question, flashcards[index].answer);
+            check(flashcards[index].question);
+        });
+
+        document.getElementById("automatic1").addEventListener("click", () => {
+            automatic();
+        });
+        document.getElementById("automatic2").addEventListener("click", () => {
+            tudong = false;
+            document.querySelector("#automatic2").style.display = "none";
+            document.querySelector("#automatic1").style.display = "inline";
+        });
+        function automatic() {
+            tudong = true;
+            document.querySelector("#automatic1").style.display = "none";
+            document.querySelector("#automatic2").style.display = "inline";
+        }
+
 
     </script>
 </body>

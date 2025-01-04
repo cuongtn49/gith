@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .vocabulary-container {
+    display: flex; /* Hiển thị từ vựng theo hàng ngang */
+    flex-wrap: wrap; /* Đưa từ xuống dòng nếu hết chỗ */
+    gap: 10px; /* Khoảng cách giữa các từ */
+    padding: 10px;
+    border: 2px solid #ccc; /* Bao viền container */
+    background-color: #f9f9f9; /* Màu nền nhẹ */
+}
+
+.word {
+    padding: 5px 10px; /* Khoảng cách bên trong từng từ */
+    border: 1px solid #ddd; /* Viền cho từng từ */
+    border-radius: 5px; /* Bo góc */
+    background-color: #fff; /* Màu nền của từ */
+    font-size: 16px; /* Kích thước chữ */
+    font-weight: bold;
+    color: #333; /* Màu chữ */
+    cursor: pointer; /* Con trỏ dạng bàn tay khi rê chuột vào */
+    transition: all 0.3s ease; /* Hiệu ứng mượt khi hover */
+}
+
+.word:hover {
+    background-color: #007bff; /* Màu nền khi hover */
+    color: #fff; /* Màu chữ khi hover */
+    transform: scale(1.1); /* Phóng to nhẹ khi hover */
+}
+
+</style>
+<body>
+    <div class="vocabulary-container">
+        <span class="word">apple</span>
+        <span class="word">banana</span>
+        <span class="word">cherry</span>
+        <span class="word">date</span>
+    </div>
+    
+</body>
+</html>
