@@ -42,7 +42,7 @@ function showQuizQuestion() {
 
     // Lấy câu hỏi và đáp án hiện tại
     const currentQuestion = flashcards[currentIndex];
-    quizQuestionEl.textContent = currentQuestion.question + " - " + currentQuestion.annotation1 + " - "+currentQuestion.annotation2;
+    quizQuestionEl.textContent = currentQuestion.question;
 
     // Tạo các lựa chọn
     quizChoices = generateChoices(currentQuestion.answer);

@@ -7,6 +7,13 @@
     <title>Document</title>
 </head>
 <style>
+    body{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    #box{
+       display: flex; 
+       justify-content: center;
+    }
     .fill-blank-box {
         display: flex;
         gap: 5px;
@@ -34,7 +41,7 @@
 
 <body>
     <div id="box">
-        <div class="fill-blank-box">
+        <!-- <div class="fill-blank-box">
             <input type="text">
         </div>
         <div class="fill-blank-box">
@@ -52,36 +59,55 @@
             <input type="text">
             <input type="text">
             <input type="text">
-        </div>
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+        </div> -->
     </div>
     <script>
         var yourAnswer = "";
-        var answer = "iamastudent";
-        const inputs = document.querySelectorAll("#box input");
-        inputs[0].focus();
-        Array.from(inputs).forEach((element, index) => {
-            element.addEventListener('keydown', (event) => {
-                if (element.value !== "") {
-                    const nextInput = inputs[index + 1];
-                    if (nextInput) {
-                        nextInput.focus();
-                    }
-                    setTimeout(() => {
-                        if (index === inputs.length - 2) {
-                            Array.from(inputs).forEach((element, index) => {
-                                // yourAnswer += element.value;
-                                element.disabled = true;
-                                if (element.value.toLowerCase() !== answer[index].toLowerCase()) element.style.color = "red";
-                                else element.style.color = "green";
-                            });
-                            // console.log(yourAnswer);
+        var answer = "input";
+        function display(){
+            const div = document.createElement("div");
+            div.className = "fill-blank-box";
+            for (let i=0;i<answer.length;i++){
+                const input = document.createElement("div");
+                input.innerHTML = `<input type="text" maxlength="1">`;
+                div.appendChild(input);
+            }
+            document.getElementById("box").appendChild(div);
+        }
+        display();
+        check();
+        function check() {
+            const inputs = document.querySelectorAll("#box input");
+            inputs[0].focus();
+            Array.from(inputs).forEach((element, index) => {
+                element.addEventListener('keydown', (event) => {
+                    if (element.value !== "") {
+                        const nextInput = inputs[index + 1];
+                        if (nextInput) {
+                            nextInput.focus();
                         }
-                    }, 100);
-
-                }
+                        setTimeout(() => {
+                            if (index === inputs.length - 2) {
+                                Array.from(inputs).forEach((element, index) => {
+                                    // yourAnswer += element.value;
+                                    element.disabled = true;
+                                    if (element.value.toLowerCase() !== answer[index].toLowerCase()) element.style.color = "red";
+                                    else element.style.color = "green";
+                                });
+                                // console.log(yourAnswer);
+                            }
+                        }, 100);
+                    }
+                });
             });
 
-        });
+        }
     </script>
 </body>
 
