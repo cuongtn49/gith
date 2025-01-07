@@ -50,10 +50,10 @@
         <div class="settings-section" id="settings-container">
             <h2>Cài đặt chế độ</h2>
             <label>
-                <input type="checkbox" name="options" value="random" id="option-random" /> Câu hỏi ngẫu nhiên
+                <input type="checkbox" name="options" value="random" id="option-random" checked/> Câu hỏi ngẫu nhiên
             </label>
             <label>
-                <input type="checkbox" name="options" value="" id="tudong" /> Tự động chuyển câu hỏi
+                <input type="checkbox" name="options" value="" id="tudong" checked/> Tự động chuyển câu hỏi
             </label>
             <br />
             <label>
@@ -120,6 +120,7 @@
         var index = 0;
         var tudong = null;
         var socau = null;
+        var saveYourAnswer = null;
         document.getElementById("question-count").value = flashcards.length;
 
         const number = document.getElementById("number-qs");
@@ -138,6 +139,11 @@
             } else {
                 if (ngaunhien) flashcards = flashcards.sort(() => Math.random() - 0.5);
                 if (tudong) automatic();
+                saveYourAnswer = new Array(socau);
+                for (let i=0;i<socau;i++){
+                    saveYourAnswer[i] = "";
+                }
+                console.log(saveYourAnswer);
                 begin();
             }
         });
@@ -166,11 +172,11 @@
             }
             document.getElementById("box").appendChild(div);
         }
-
         function check(word) {
             const inputs = document.querySelectorAll("#box input");
             inputs[0].focus();
             var ischeck = true;
+            var yourAnswer = "";
             Array.from(inputs).forEach((element, index) => {
                 element.addEventListener('keydown', (event) => {
                     if (element.value !== "") {
@@ -181,6 +187,7 @@
                         setTimeout(() => {
                             if (index === inputs.length - 2) {
                                 Array.from(inputs).forEach((element, index) => {
+                                    yourAnswer+=element.value;
                                     element.disabled = true;
                                     if (element.value.toLowerCase() !== word[index].toLowerCase()) {
                                         element.style.color = "red";
@@ -188,17 +195,22 @@
                                     }
                                     else element.style.color = "green";
                                 });
+                                saveAnswer(yourAnswer);
+                                // alert(yourAnswer);
                                 if (tudong && ischeck) {
                                     setTimeout(() => {
                                         next();
                                     }, 1000);
                                 }
-
                             }
                         }, 100);
                     }
                 });
             });
+        }
+        function saveAnswer(yourAnswer){
+            if (saveYourAnswer[index].length>0) saveYourAnswer[index]+= " - "+yourAnswer;
+            else saveYourAnswer[index] = yourAnswer;
         }
         function next() {
             if (index < socau - 1) {
@@ -210,10 +222,9 @@
                 document.getElementById("quiz-container").style.display = "none";
                 document.getElementById("completion-message").style.display = "block";
                 document.getElementById("detailed-review").style.display = "block";
-
+                displayMark();
             }
         }
-
         function nextBtn() {
             nextbtn.addEventListener("click", () => {
                 next();
@@ -245,7 +256,21 @@
             document.querySelector("#automatic2").style.display = "inline";
         }
 
-
+        function displayMark(){
+            document.getElementById("table-body").innerHTML = "";
+            for (let i=0;i<socau;i++){
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    
+                        <td>${i+1}</td>
+                        <td>${flashcards[i].question}</td>
+                        <td>${saveYourAnswer[i]}</td>
+                        <td>${flashcards[i].answer}</td>
+                    
+                `;
+                document.getElementById("table-body").appendChild(tr);
+            }
+        }
     </script>
 </body>
 
