@@ -327,6 +327,16 @@
     body.show {
         opacity: 1;
     }
+    .save-word1{
+        position: absolute;
+        right: 30px;
+        top:20px;
+    }
+    .save-word2{
+        position: absolute;
+        right: 30px;
+        bottom:20px;
+    }
 </style>
 
 <body>
@@ -381,7 +391,9 @@
                         <div class="flashcard-inner">
                             <div class="flashcard-front" id="card-question">Question goes here...</div>
                             <div class="flashcard-back" id="card-answer">Answer goes here...</div>
+                            <div class="save-word1" id="save-word"><img src="./image/star.png" style="width: 30px;" alt=""></div>
                         </div>
+                        
                     </div>
                     <div class="list-group group2">
 
@@ -425,6 +437,8 @@
                     <div onclick="toIPA()"><img class="icon-flash" src="./image/diction.png" alt=""></div>
 
                     <div onclick="toCard()"><img class="icon-flash" src="./image/directons.png" alt=""></div>
+                    <div onclick="tofavourite()"><img class="icon-flash" src="./image/favourite-subject.png" alt=""></div>
+                    
 
                     <div>
                         <input id="blended-flashcard" type="checkbox" style="display: none;">
@@ -531,6 +545,9 @@
     }
     function toFillBlank(){
         window.location.href = "fillBlank.html";
+    }
+    function tofavourite(){
+        window.location.href = "Favourite.html";
     }
 
 

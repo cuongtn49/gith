@@ -196,7 +196,7 @@
                     const answer = parts[1];
                     const annotation1 = parts[2] || " "; // Default value if annotation1 is missing
                     const annotation2 = parts[3] || " "; // Default value if annotation2 is missing
-                    flashcards.push({ question, answer, annotation1, annotation2 });
+                    flashcards.push({ question, answer, annotation1, annotation2, save: false });
                 }
             });
 

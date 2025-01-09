@@ -43,6 +43,16 @@
     #box {
         display: flex;
     }
+    .save-word{
+        position: absolute;
+        z-index: 200;
+    }
+    .automatic{
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        
+    }
 </style>
 
 <body>
@@ -50,10 +60,10 @@
         <div class="settings-section" id="settings-container">
             <h2>Cài đặt chế độ</h2>
             <label>
-                <input type="checkbox" name="options" value="random" id="option-random" checked/> Câu hỏi ngẫu nhiên
+                <input type="checkbox" name="options" value="random" id="option-random" checked /> Câu hỏi ngẫu nhiên
             </label>
             <label>
-                <input type="checkbox" name="options" value="" id="tudong" checked/> Tự động chuyển câu hỏi
+                <input type="checkbox" name="options" value="" id="tudong" checked /> Tự động chuyển câu hỏi
             </label>
             <br />
             <label>
@@ -64,8 +74,9 @@
                 Bắt đầu
             </button>
         </div>
-
+        <div class="save-word" id="save-word" style="display: none;"><img src="./image/star.png" style="width: 30px;" alt=""></div>
         <div class="content-section" id="quiz-container" style="display: none;">
+            
             <h2 class="instructions-text" id="number-qs">question 1</h2>
             <h3 class="display-question" id="meaning">Tiếng Anh</h3>
             <!-- <input type="text" id="user-input" placeholder="Nhập câu trả lời tại đây..." autocomplete="off" /> -->
@@ -76,8 +87,8 @@
                 <button class="action-button" id="again-button">Nhập lại</button>
                 <button class="action-button" id="next-button">Tiếp theo</button>
                 <div>
-                    <img id="automatic1" src="image/auto.png" alt="" style="width: 40px;">
-                    <img id="automatic2" src="image/auto (1).png" alt="" style="width: 40px; display: none;">
+                    <img class="automatic" id="automatic1" src="image/auto.png" alt="" style="width: 40px;">
+                    <img class="automatic" id="automatic2" src="image/auto (1).png" alt="" style="width: 40px; display: none;">
                 </div>
             </div>
         </div>
@@ -117,6 +128,7 @@
         // alert("Chức năng này còn đang trong quá trình hoàn thiện!");
 
         var flashcards = JSON.parse(localStorage.getItem("data")) || [];
+        var original = flashcards.map(element => element);
         var index = 0;
         var tudong = null;
         var socau = null;
@@ -140,11 +152,12 @@
                 if (ngaunhien) flashcards = flashcards.sort(() => Math.random() - 0.5);
                 if (tudong) automatic();
                 saveYourAnswer = new Array(socau);
-                for (let i=0;i<socau;i++){
+                for (let i = 0; i < socau; i++) {
                     saveYourAnswer[i] = "";
                 }
                 console.log(saveYourAnswer);
                 begin();
+                displayStar();
             }
         });
 
@@ -153,6 +166,7 @@
             document.getElementById("quiz-container").style.display = "block";
             display(flashcards[index].question, flashcards[index].answer);
             check(flashcards[index].question);
+            document.getElementById("save-word").style.display = "block";
         }
 
 
@@ -187,7 +201,7 @@
                         setTimeout(() => {
                             if (index === inputs.length - 2) {
                                 Array.from(inputs).forEach((element, index) => {
-                                    yourAnswer+=element.value;
+                                    yourAnswer += element.value;
                                     element.disabled = true;
                                     if (element.value.toLowerCase() !== word[index].toLowerCase()) {
                                         element.style.color = "red";
@@ -208,8 +222,8 @@
                 });
             });
         }
-        function saveAnswer(yourAnswer){
-            if (saveYourAnswer[index].length>0) saveYourAnswer[index]+= " - "+yourAnswer;
+        function saveAnswer(yourAnswer) {
+            if (saveYourAnswer[index].length > 0) saveYourAnswer[index] += " - " + yourAnswer;
             else saveYourAnswer[index] = yourAnswer;
         }
         function next() {
@@ -222,12 +236,14 @@
                 document.getElementById("quiz-container").style.display = "none";
                 document.getElementById("completion-message").style.display = "block";
                 document.getElementById("detailed-review").style.display = "block";
+                document.getElementById("save-word").style.display = "none";
                 displayMark();
             }
         }
         function nextBtn() {
             nextbtn.addEventListener("click", () => {
                 next();
+                displayStar();
             })
         }
         if (!tudong) nextBtn();
@@ -256,13 +272,13 @@
             document.querySelector("#automatic2").style.display = "inline";
         }
 
-        function displayMark(){
+        function displayMark() {
             document.getElementById("table-body").innerHTML = "";
-            for (let i=0;i<socau;i++){
+            for (let i = 0; i < socau; i++) {
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
                     
-                        <td>${i+1}</td>
+                        <td>${i + 1}</td>
                         <td>${flashcards[i].question}</td>
                         <td>${saveYourAnswer[i]}</td>
                         <td>${flashcards[i].answer}</td>
@@ -271,6 +287,52 @@
                 document.getElementById("table-body").appendChild(tr);
             }
         }
+
+        document.getElementById("save-word").addEventListener("click", () => {
+            // alert(document.querySelector("#save-word img").src);
+            if (document.querySelector("#save-word img").src.endsWith("star.png")) {
+                document.querySelector("#save-word img").src = "./image/star (1).png";
+                flashcards[index].save = true;
+                // alert(original[index].question === flashcards[index].question);
+                saveFavourite(true);
+            } else {
+                document.querySelector("#save-word img").src = "./image/star.png";
+                flashcards[index].save = false;
+                saveFavourite(false);
+
+            }
+        });
+        function saveFavourite(value) {
+            if (original[index].question === flashcards[index].question) {
+                original[index].save = value;
+            } else {
+                for (let i = 0; i < original.length; i++) {
+                    if (original[i].question === flashcards[index].question) {
+                        original[i].save = value;
+                        break;
+                    }
+                }
+            }
+            localStorage.setItem("data", JSON.stringify(original));
+            AddFavourite();
+        }
+        function displayStar() {
+            if (flashcards[index].save) {
+                document.querySelector("#save-word img").src = "./image/star (1).png";
+            } else document.querySelector("#save-word img").src = "./image/star.png";
+        }
+
+        function AddFavourite() {
+            // var favouriteList = JSON.parse(localStorage.getItem("favouriteID")) || [];
+            var favouriteList = [];
+            for (let i = 0; i < original.length; i++) {
+                if (original[i].save) favouriteList.push(original[i]);
+            }
+            localStorage.setItem("favouriteID", JSON.stringify(favouriteList));
+            console.log(favouriteList);
+
+        }
+
     </script>
 </body>
 
