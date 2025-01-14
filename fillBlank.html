@@ -43,15 +43,17 @@
     #box {
         display: flex;
     }
-    .save-word{
+
+    .save-word {
         position: absolute;
         z-index: 200;
     }
-    .automatic{
+
+    .automatic {
         position: absolute;
         top: 30px;
         right: 30px;
-        
+
     }
 </style>
 
@@ -60,10 +62,21 @@
         <div class="settings-section" id="settings-container">
             <h2>Cài đặt chế độ</h2>
             <label>
-                <input type="checkbox" name="options" value="random" id="option-random" checked /> Câu hỏi ngẫu nhiên
+                <input type="checkbox" name="options" value="random" id="option-random" checked /> Ngẫu nhiên
             </label>
             <label>
-                <input type="checkbox" name="options" value="" id="tudong" checked /> Tự động chuyển câu hỏi
+                <input type="checkbox" name="options" value="" id="tudong" checked /> Tự động chuyển
+            </label>
+            <!-- <br /> -->
+            <label>
+                <input type="checkbox" name="options" value="" id="star-qs" /> Thuật ngữ đã được đánh dấu
+            </label>
+            <!-- <br /> -->
+            <label>
+                <input type="radio" name="options" value="" id="dinhnghia" checked /> Định nghĩa
+            </label>
+            <label>
+                <input type="radio" name="options" value="" id="nghe" /> Nghe
             </label>
             <br />
             <label>
@@ -74,9 +87,10 @@
                 Bắt đầu
             </button>
         </div>
-        <div class="save-word" id="save-word" style="display: none;"><img src="./image/star.png" style="width: 30px;" alt=""></div>
+        <div class="save-word" id="save-word" style="display: none;"><img src="./image/star.png" style="width: 30px;"
+                alt=""></div>
         <div class="content-section" id="quiz-container" style="display: none;">
-            
+
             <h2 class="instructions-text" id="number-qs">question 1</h2>
             <h3 class="display-question" id="meaning">Tiếng Anh</h3>
             <!-- <input type="text" id="user-input" placeholder="Nhập câu trả lời tại đây..." autocomplete="off" /> -->
@@ -87,8 +101,9 @@
                 <button class="action-button" id="again-button">Nhập lại</button>
                 <button class="action-button" id="next-button">Tiếp theo</button>
                 <div>
-                    <img class="automatic" id="automatic1" src="image/auto.png" alt="" style="width: 40px;">
-                    <img class="automatic" id="automatic2" src="image/auto (1).png" alt="" style="width: 40px; display: none;">
+                    <img class="automatic" id="automatic1" src="image/execution (2).png" alt="" style="width: 40px;">
+                    <img class="automatic" id="automatic2" src="image/execution3.png" alt=""
+                        style="width: 40px; display: none;">
                 </div>
             </div>
         </div>
@@ -129,10 +144,17 @@
 
         var flashcards = JSON.parse(localStorage.getItem("data")) || [];
         var original = flashcards.map(element => element);
+
+
+
+
+
         var index = 0;
         var tudong = null;
         var socau = null;
         var saveYourAnswer = null;
+        var iscore = null;
+        var boolscore = null;
         document.getElementById("question-count").value = flashcards.length;
 
         const number = document.getElementById("number-qs");
@@ -141,10 +163,23 @@
 
         const displayanswer = document.getElementById("feedback-message");
 
+        document.getElementById("star-qs").addEventListener("change", (event) => {
+            if (event.target.checked) {  // Check if the checkbox is checked
+                document.getElementById("question-count").value = JSON.parse(localStorage.getItem("favouriteID")).length;
+            } else {
+                document.getElementById("question-count").value = flashcards.length;
+            }
+        });
+
+
         document.getElementById("start-button").addEventListener("click", () => {
             socau = document.getElementById("question-count").value;
             tudong = document.getElementById("tudong").checked;
             const ngaunhien = document.getElementById("option-random").checked;
+
+            if (document.getElementById("star-qs").checked) {
+                flashcards = JSON.parse(localStorage.getItem("favouriteID")) || [];
+            } else flashcards = JSON.parse(localStorage.getItem("data")) || [];
 
             if (socau > flashcards.length || socau <= 0) {
                 alert("Số câu không hợp lệ!");
@@ -156,6 +191,17 @@
                     saveYourAnswer[i] = "";
                 }
                 console.log(saveYourAnswer);
+
+                iscore = new Array(socau);
+                for (let i = 0; i < socau; i++) {
+                    iscore[i] = false;
+                }
+
+                boolscore = new Array(socau);
+                for (let i = 0; i < socau; i++) {
+                    boolscore[i] = true;
+                }
+
                 begin();
                 displayStar();
             }
@@ -167,12 +213,21 @@
             display(flashcards[index].question, flashcards[index].answer);
             check(flashcards[index].question);
             document.getElementById("save-word").style.display = "block";
+
         }
 
 
         function display(word, meaning) {
             number.textContent = `question ${index + 1}`;
-            mean.textContent = meaning;
+            if (document.getElementById("dinhnghia").checked) mean.textContent = meaning;
+            else {
+                mean.innerHTML = `<h3 class="display-question" id="loudspeakerQuestion"><img src="./image/audio-guide.png" alt="" style="width: 100px;"></h3>`;
+                speak(word);
+                const loudspeakerQuestion = document.getElementById("loudspeakerQuestion");
+                loudspeakerQuestion.onclick = function () {
+                    speak(word);
+                }
+            }
 
 
 
@@ -211,16 +266,22 @@
                                 });
                                 saveAnswer(yourAnswer);
                                 // alert(yourAnswer);
+                                score(ischeck);
                                 if (tudong && ischeck) {
                                     setTimeout(() => {
                                         next();
                                     }, 1000);
                                 }
                             }
+
                         }, 100);
                     }
                 });
             });
+        }
+        function score(value) {
+            if (boolscore[index]) iscore[index] = value;
+            boolscore[index] = false;
         }
         function saveAnswer(yourAnswer) {
             if (saveYourAnswer[index].length > 0) saveYourAnswer[index] += " - " + yourAnswer;
@@ -238,6 +299,17 @@
                 document.getElementById("detailed-review").style.display = "block";
                 document.getElementById("save-word").style.display = "none";
                 displayMark();
+                // document.getElementById("correct-count").textContent += sum(score);
+                console.log(iscore);
+                var right = 0;
+                for (let i = 0; i < socau; i++) {
+                    if (iscore[i]) right++;
+                }
+                // console.log(right);
+
+                document.getElementById("score-display").textContent = "Điểm số: " + (parseFloat(((socau - (socau - right)) / socau) * 10)).toFixed(1);
+                document.getElementById("correct-count").textContent = "Số câu đúng: " + right;
+                document.getElementById("wrong-count").textContent = "Số câu sai: " + (socau - right);
             }
         }
         function nextBtn() {
@@ -251,6 +323,7 @@
         document.getElementById("answer-button").addEventListener("click", () => {
             displayanswer.textContent = flashcards[index].question;
             displayanswer.style.visibility = "visible";
+            score(false);
         });
 
         document.getElementById("again-button").addEventListener("click", () => {
@@ -332,6 +405,12 @@
             console.log(favouriteList);
 
         }
+        function speak(inputText) {
+            // const inputText = document.getElementById("text-input").value; // Lấy giá trị văn bản từ ô input
+            const utterance = new SpeechSynthesisUtterance(inputText); // Tạo đối tượng chứa văn bản cần đọc
+            window.speechSynthesis.speak(utterance); // Đọc văn bản
+        }
+
 
     </script>
 </body>
