@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>English Reading Test</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+    h1 { color: #2c3e50; }
+    .section { margin-bottom: 30px; }
+    label { display: block; margin-top: 10px; }
+    button { margin-top: 20px; padding: 10px 20px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background-color: #2980b9; }
+    .question { margin-top: 15px; }
+    .question p { font-weight: bold; }
+    .options label { display: block; margin-left: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Thiết lập bài đọc hiểu tiếng Anh</h1>
+
+  <div class="section" id="setup">
+    <label for="level">Chọn trình độ:</label>
+    <select id="level">
+      <option value="A2">A2 (Cơ bản)</option>
+      <option value="B1" selected>B1 (Trung bình)</option>
+      <option value="B2">B2 (Khá)</option>
+    </select>
+
+    <label for="numQuestions">Số câu hỏi:</label>
+    <input type="number" id="numQuestions" value="3" min="1" max="10">
+
+    <button onclick="startTest()">Bắt đầu bài kiểm tra</button>
+  </div>
+
+  <div class="section" id="test" style="display:none;">
+    <h2>Đoạn văn</h2>
+    <p id="passage">
+      Maria is a young teacher who loves working with children. Every day, she prepares exciting lessons to keep her students engaged. She believes that learning should be fun and meaningful.
+    </p>
+
+    <div id="questions"></div>
+    <button onclick="submitAnswers()">Nộp bài</button>
+  </div>
+
+  <div class="section" id="result" style="display:none;"></div>
+
+  <script>
+    const questionBank = [
+      {
+        question: "What is Maria's profession?",
+        options: ["A doctor", "A teacher", "A student", "A musician"],
+        answer: "A teacher"
+      },
+      {
+        question: "Why does Maria prepare exciting lessons?",
+        options: [
+          "To make money",
+          "To impress parents",
+          "To keep her students engaged",
+          "Because she has to"
+        ],
+        answer: "To keep her students engaged"
+      },
+      {
+        question: "What does Maria believe about learning?",
+        options: [
+          "It should be hard",
+          "It should be fast",
+          "It should be fun and meaningful",
+          "It should be online"
+        ],
+        answer: "It should be fun and meaningful"
+      }
+    ];
+
+    function startTest() {
+      document.getElementById('setup').style.display = 'none';
+      document.getElementById('test').style.display = 'block';
+
+      const numQuestions = parseInt(document.getElementById('numQuestions').value);
+      const selectedQuestions = questionBank.slice(0, numQuestions);
+
+      const questionContainer = document.getElementById('questions');
+      questionContainer.innerHTML = '';
+
+      selectedQuestions.forEach((q, index) => {
+        const div = document.createElement('div');
+        div.classList.add('question');
+        div.innerHTML = `
+          <p>Câu ${index + 1}: ${q.question}</p>
+          <div class="options">
+            ${q.options.map(opt => `
+              <label><input type="radio" name="q${index}" value="${opt}"> ${opt}</label>
+            `).join('')}
+          </div>
+        `;
+        questionContainer.appendChild(div);
+      });
+    }
+
+    function submitAnswers() {
+      const numQuestions = parseInt(document.getElementById('numQuestions').value);
+      let correct = 0;
+
+      for (let i = 0; i < numQuestions; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected && selected.value === questionBank[i].answer) {
+          correct++;
+        }
+      }
+
+      document.getElementById('test').style.display = 'none';
+      const result = document.getElementById('result');
+      result.style.display = 'block';
+      result.innerHTML = `<h2>Kết quả</h2><p>Bạn đúng ${correct}/${numQuestions} câu.</p>`;
+    }
+  </script>
+</body>
+</html>
